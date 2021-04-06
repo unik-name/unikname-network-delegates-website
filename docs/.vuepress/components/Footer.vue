@@ -1,6 +1,6 @@
 <template>
   <footer>
-    © 2021 <a href="https://www.unik-name.com">Unikname</a>&nbsp;&bullet;&nbsp;<a href="/powered-by-ark-io">Powered by ARK</a>
+    © 2021 <a href="https://www.unik-name.com">Unikname</a>&nbsp;&bullet;&nbsp;<a href="https://docs.uns.network/powered-by-ark-io">Powered by ARK</a>
   </footer>
 </template>
 
