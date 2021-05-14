@@ -1,4 +1,4 @@
-const { slugify: vuePressSlugify } = require("@vuepress/shared-utils");
+const { slugify: vuePressSlugify, path } = require("@vuepress/shared-utils");
 
 function customSlugifyToHandleBadges(str) {
   // Remove badges
@@ -10,31 +10,50 @@ module.exports = {
   title2: "uns delegates (Universal-Name-System)",
   description:
     "description 1",
-  description2:
-    "description 2",
-  plugins: {
-    sitemap: {
-      hostname: "#",
-    },
-    "@vuepress/last-updated": {
-      transformer: (timestamp, lang) => {
-        // UTC date (without time) as ISO format: 2019-09-17
-        return new Date(timestamp).toISOString().split("T")[0];
-      },
-    },
-    "@vuepress/back-to-top": {},
-    tabs: {},
-    "@goy/svg-icons": {},
-    "vuepress-plugin-container": {
-      type: "information",
-      defaultTitle: "",
-      before: '<div class="information">',
-      after: "</div>",
-    },
-    "@spacelephantlabs/vuepress-plugin-matomo": {
-      siteId: 2,
-    }
-  },
+  plugins: [
+    [
+      "sitemap",
+      {
+        hostname: "#",
+      }
+    ],
+    [
+      "@vuepress/last-updated",
+      {
+        transformer: (timestamp, lang) => {
+          // UTC date (without time) as ISO format: 2019-09-17
+          return new Date(timestamp).toISOString().split("T")[0];
+        }
+      }
+    ],
+    [
+      "@vuepress/back-to-top", {}
+    ],
+    [
+      "tabs", {},
+    ],
+    [
+      "@goy/svg-icons", {}
+    ],
+    [
+      "vuepress-plugin-container",
+      {
+        type: "information",
+        defaultTitle: "",
+        before: '<div class="information">',
+        after: "</div>",
+      }
+    ],
+    [
+      "@spacelephantlabs/vuepress-plugin-matomo",
+      {
+        siteId: 2,
+      }
+    ],
+    [
+      require("./my-plugin")
+    ]
+  ],
   head: [
     ["link", { rel: "icon", href: "/logo.png" }],
     [
