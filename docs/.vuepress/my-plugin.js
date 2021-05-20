@@ -1,26 +1,21 @@
-module.exports = (options, context) => {  
-    return {
-      async generated(pagePaths) {
-        console.log('generating...')
-  
-        const { pages } = context.getSiteData ? context.getSiteData() : context
-        let homePageIndex = -1
+module.exports = (options, context) => {
+  const pages = []
 
-        pages.forEach((page, id) => {
-            if (page.regularPath.includes('delegates')) {
-              console.log(page.title)
-              console.log(page.frontmatter, '\n')
-            } else if (page.frontmatter.title === 'home') {
-                homePageIndex = id
-            }
-        })
-        
-        // add content to home page
-        console.log(homePageIndex)
-        console.log(pages[homePageIndex])
-
-        // but files aldreay generated
-
+  return {
+    extendPageData($page) {
+      if($page.regularPath.includes("delegates")) {
+        pages.push($page.frontmatter)
       }
+    },
+
+    async ready() {
+      const { siteConfig } = context;
+      if (!siteConfig.head) siteConfig.head = [];
+      siteConfig.head.push(['delegateData', pages])
+    },
+
+    generated(pagePaths) {
+      console.log('generated')
     }
+  }
 }

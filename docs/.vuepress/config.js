@@ -52,7 +52,7 @@ module.exports = {
     ],
     [
       require("./my-plugin")
-    ]
+    ],
   ],
   head: [
     ["link", { rel: "icon", href: "/logo.png" }],
@@ -87,9 +87,6 @@ module.exports = {
       { text: "UNS Home", link: "https://uns.network" },
       { text: "UNS Explorer", link: "https://explorer.uns.network" },
     ],
-    sidebar: [
-      "/",
-    ],
   },
   markdown: {
     slugify: customSlugifyToHandleBadges,
@@ -97,4 +94,11 @@ module.exports = {
       slugify: customSlugifyToHandleBadges,
     },
   },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@assets': '/docs/delegates/'
+      }
+    }
+  }
 };
