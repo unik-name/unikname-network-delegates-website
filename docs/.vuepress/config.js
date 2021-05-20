@@ -9,7 +9,7 @@ module.exports = {
   title: "The UNS Delegates Website!",
   title2: "UNS delegates (Universal-Name-System)",
   description:
-    "description 1",
+    "description",
   plugins: [
     [
       "sitemap",
