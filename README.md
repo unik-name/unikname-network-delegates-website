@@ -10,7 +10,7 @@ Who are the UNS delegates? 👉 https://delegates.uns.network
             - title: your unikid
             - summary: short details about you
         * optionals:
-            - twitter, github, email
+            - twitter, github, email, website
     - add a picture of you with and name it logo.png
 - and finally make a pull request
 
