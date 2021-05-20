@@ -6,8 +6,8 @@ function customSlugifyToHandleBadges(str) {
 }
 
 module.exports = {
-  title: "The uns Delegates Website!",
-  title2: "uns delegates (Universal-Name-System)",
+  title: "The UNS Delegates Website!",
+  title2: "UNS delegates (Universal-Name-System)",
   description:
     "description 1",
   plugins: [

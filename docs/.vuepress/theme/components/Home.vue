@@ -75,9 +75,10 @@ export default {
 <style lang="stylus">
 .home
   padding $navbarHeight 2rem 0
-  max-width 960px
+  max-width 1260px
   margin 0px auto
   display block
+  text-align center
   .hero
     text-align center
     img

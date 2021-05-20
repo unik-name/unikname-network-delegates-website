@@ -15,6 +15,7 @@
                 </div>
             </div>
     </span>
+    
     <script src="https://kit.fontawesome.com/ab9d8096cd.js" crossorigin="anonymous" />
 </div>
 </template>
@@ -30,6 +31,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.card-container
+  display flex
+  flex-wrap wrap
+  -webkit-box-orient horizontal
+  -webkit-box-direction normal
+  -ms-flex-direction row
+  flex-direction row
+  justify-content center
+  margin 40px -20px 20px 0
 .card
   height 20em
   width 17em
@@ -67,13 +77,4 @@ export default {
         p
             padding: 5px;
             display: inline
-.card-container
-  display flex
-  /*flex-wrap wrap*/
-  -webkit-box-orient horizontal
-  -webkit-box-direction normal
-  -ms-flex-direction row
-  flex-direction row
-  justify-content center
-  margin 40px -20px 20px 0
 </style>
