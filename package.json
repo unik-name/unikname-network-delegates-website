@@ -16,9 +16,5 @@
     "@spacelephantlabs/vuepress-plugin-matomo": "spacelephantlabs/vuepress-plugin-matomo",
     "@vuepress/shared-utils": "^1.8.2",
     "vuepress": "^1.8.2"
-  },
-  "dependencies": {
-    "fs": "^0.0.1-security",
-    "replace-in-file": "^6.2.0"
   }
 }
