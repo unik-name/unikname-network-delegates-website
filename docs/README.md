@@ -1,7 +1,6 @@
 ---
 title: home
+home: true
 ---
-
-# Delegates
 
 <DelegateData />
