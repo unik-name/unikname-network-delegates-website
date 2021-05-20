@@ -2,6 +2,6 @@
 title: home
 ---
 
-# Main Page
+# Delegates
 
-uns delegates website
+<DelegateData />
