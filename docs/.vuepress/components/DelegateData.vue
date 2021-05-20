@@ -11,6 +11,7 @@
                         <p v-if="delegate.twitter"><a target="_blank" :href="delegate.twitter"><i class="fa fa-twitter" />twitter</a></p>
                         <p v-if="delegate.github"><a target="_blank" :href="delegate.github"><i class="fa fa-github" />github</a></p>
                         <p v-if="delegate.email"><a target="_blank" :href="`mailto:${delegate.email}`"><i class="fa fa-envelope" />email</a></p>
+                        <p v-if="delegate.website"><a target="_blank" :href="delegate.website"><i class="fa fa-globe" />website</a></p>
                     </div>
                     <div class="description">{{ delegate.summary }}</div>
                 </div>
@@ -75,7 +76,7 @@ export default {
         margin-top 10px
     .socials
         i
-            padding-right: 3px
+            padding-right: 6px
         p
             padding: 5px;
             display: inline
