@@ -44,7 +44,7 @@ export default {
   justify-content center
   margin 40px -20px 20px 0
 .card
-  height 20em
+  height 21em
   width 17em
   min-width 17em
   display -webkit-box
