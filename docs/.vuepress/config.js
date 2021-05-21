@@ -74,7 +74,7 @@ module.exports = {
     repo: "unik-name/uns-delegates-website",
     repoLabel: "Contribute!",
     editLinks: true,
-    editLinkText: "Help us improve this page!",
+    editLinkText: "",
     docsDir: "docs",
     lastUpdated: true,
     activeHeaderLinks: true,
