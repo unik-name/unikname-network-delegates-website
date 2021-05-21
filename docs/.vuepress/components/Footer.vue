@@ -9,4 +9,7 @@
   </footer>
 </template>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+footer
+  text-align: center
+</style>
