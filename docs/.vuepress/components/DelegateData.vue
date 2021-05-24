@@ -17,10 +17,9 @@
                                 <p v-if="delegate.forum"><a target="_blank" :href="delegate.forum"><i class="fa fa-globe" />forum</a></p>
                             </div>
                             <div class="description">
-                                <span v-if="delegate.stat">
-                                    <p>votes: {{(delegate.stat.votes/10**8).toFixed(2)}}</p>
-                                    <p>more details here?</p>
-                                </span>
+                                <p class="resigned" v-if="delegate.isResigned">delegate resigned</p>
+                                <p v-if="delegate.votes">{{ (delegate.votes/10**8).toFixed(0) }} votes</p>
+                                <p v-if="delegate.isLive">live: {{delegate.isLive}} </p>
                             </div>
                         </div>
                     </div>
@@ -40,15 +39,14 @@ export default {
         
         delegates.forEach(delegate => {
             const stat = res.data.find(el => el.username === delegate.username)
-            console.log(stat)
-            delegate.stat = stat ? stat : null
+            delegate.votes = stat.votes ? stat.votes : null
+            delegate.isResigned = stat.isResigned ? stat.isResigned : false
+            delegate.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000) / 1000 < 600 ? true : no
         })
         this.$data.delegates = delegates.sort((a, b) => a.title.localeCompare(b.title))
-        console.log(delegates)
     },
     data() {
         return {
-            iscardhover: false,
             delegates: [],
         }
     },
@@ -95,12 +93,15 @@ export default {
     padding-left: 10px
     padding-right 10px
     font-size 0.9rem
+    .resigned
+        color: red
     .description
         color #000
         font-weight 400
         margin-top 10px
         p
             margin: 1px
+            font-size: 1rem
     .socials
         i
             padding-right: 6px
