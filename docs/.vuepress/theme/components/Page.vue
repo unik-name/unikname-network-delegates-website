@@ -2,13 +2,9 @@
   <main class="page">
     <slot name="top" />
 
+    <DelegateDetail class="theme-default-content"/>
+
     <Content class="theme-default-content" />
-
-    <PageNav v-bind="{ sidebarItems }" />
-
-    <PageEdit />
-
-    <slot name="bottom" />
 
     <Footer class="pagefooter" />
     
@@ -31,6 +27,9 @@ export default {
 .page
   padding-bottom 2rem
   display block
+
+.delegate-detail
+  padding 4rem 0rem 0rem 12.5rem
 
 .pagefooter
   padding 2rem 0rem 0rem 2rem

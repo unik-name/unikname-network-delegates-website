@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="delegate-details">
     <div class="top">
         <div v-if="delegate.unikid">
             <img class="logo" height="100" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)"/>
@@ -37,7 +37,6 @@ export default {
         const uniksAPI = await fetch("https://api.uns.network/api/v2/uniks/search", {
             method: "POST",body: JSON.stringify({id: this.$page.frontmatter.unikid})
         }).then(res => res.json())
-        console.log(uniksAPI)
 
         const delegateUnik = uniksAPI.data.find(el => el.id === this.$page.frontmatter.unikid)
         const stat = delegatesAPI.data.find(el => el.username === this.$page.frontmatter.unikid)
@@ -61,7 +60,6 @@ export default {
 
 <style lang="stylus" scoped>
 .top
-    padding: 20px;
     overflow: hidden;
     .logo
         margin-right: 15px;
