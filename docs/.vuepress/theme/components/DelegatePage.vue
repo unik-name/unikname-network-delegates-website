@@ -3,15 +3,7 @@
     <slot name="top" />
 
     <Content class="theme-default-content" />
-
-    <PageNav v-bind="{ sidebarItems }" />
-
-    <PageEdit />
-
-    <slot name="bottom" />
-
-    <Footer class="pagefooter" />
-    
+   
   </main>
 </template>
 
@@ -28,6 +20,8 @@ export default {
 <style lang="stylus">
 @require '../styles/wrapper.styl'
 
+.theme-default-content:not(.custom) > *:first-child
+    margin-top: 0
 .page
   padding-bottom 2rem
   display block

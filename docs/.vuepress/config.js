@@ -97,7 +97,8 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@assets': '/docs/delegates/'
+        '@delegates': '/docs/delegates/',
+        '@assets': '/docs/assets/'
       }
     }
   }

@@ -1,11 +1,10 @@
 ---
-title: qsvtr
-username: 0013508e8f82cb1ea0f26e426ee35892e45a27f5d0f16b9b1de6109cfc663d2c
-twitter: https://twitter.com/qsvtr
-github: https://github.com/qsvtr
+unikid: 0013508e8f82cb1ea0f26e426ee35892e45a27f5d0f16b9b1de6109cfc663d2c
+twitter: qsvtr
+github: qsvtr
 email: qsvtr@protonmail.com
 website: https://qsvtr.fr
-forum: https://forum.unikname.com/u/qsvtr/summary
+forum: qsvtr
 ---
 
 <DelegateDetail />

@@ -2,24 +2,36 @@
 <div>
     <span class="card-container">
             <div v-for="delegate in delegates">
-                <a :href="`/delegates/${delegate.title}`">
+                <a :href="`/delegates/${delegate.unikid}`">
                     <div class="card">
                         <div class="card-header">
-                            <img height="100" width="100" alt="logo" :src="require(`@assets/${delegate.title}/logo.png`)">
+                            <img height="100" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)">
                         </div>
                         <div class="text-content">
-                            <h3 style="color: black"> {{ delegate.title }} </h3>
+                            <div class="unikid">
+                                <h3 style="color: black"> @{{ delegate.unikname }} </h3>
+                                <span v-if="delegate.type" :class="`unik-badge unik-badge-${delegate.type}`">
+                                        <img :src="require(`@assets/logo-${delegate.type}.png`)" alt="" class="unik-view-logo" />
+                                        {{ delegate.type }}
+                                </span>
+                            </div>
                             <div class="socials">
-                                <p v-if="delegate.twitter"><a target="_blank" :href="delegate.twitter"><i class="fa fa-twitter" />twitter</a></p>
-                                <p v-if="delegate.github"><a target="_blank" :href="delegate.github"><i class="fa fa-github" />github</a></p>
+                                <p v-if="delegate.twitter"><a target="_blank" :href="`https://twitter.com/${delegate.twitter}`"><i class="fa fa-twitter" />twitter</a></p>
+                                <p v-if="delegate.github"><a target="_blank" :href="`https://github.com/${delegate.github}`"><i class="fa fa-github" />github</a></p>
                                 <p v-if="delegate.email"><a target="_blank" :href="`mailto:${delegate.email}`"><i class="fa fa-envelope" />email</a></p>
                                 <p v-if="delegate.website"><a target="_blank" :href="delegate.website"><i class="fa fa-globe" />website</a></p>
-                                <p v-if="delegate.forum"><a target="_blank" :href="delegate.forum"><i class="fa fa-globe" />forum</a></p>
+                                <p v-if="delegate.forum"><a target="_blank" :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"><i class="fa fa-globe" />forum</a></p>
                             </div>
                             <div class="description">
                                 <p class="resigned" v-if="delegate.isResigned">delegate resigned</p>
-                                <p v-if="delegate.votes">{{ (delegate.votes/10**8).toFixed(0) }} votes</p>
-                                <p v-if="delegate.isLive">live: {{delegate.isLive}} </p>
+                                <p>rank: {{delegate.rank}} / votes: {{delegate.votes}}%</p>
+                                <p>status: {{delegate.isLive}}</p>
+                                <p v-if="delegate.forger">elected: 
+                                    <img :src="require(`@assets/check.svg`)" height="15px" width="15px" alt="status"/>
+                                </p>
+                                <p v-else>elected: 
+                                    <img :src="require(`@assets/cross.svg`)" height="15px" width="15px" alt="status"/>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -34,16 +46,27 @@
 <script>
 export default {
     async beforeMount() {
-        const res = await fetch("https://api.uns.network/api/v2/delegates?limit=23").then(res => res.json())
-        const delegates = this.$site.headTags.find(el => el[0] === 'delegateData')[1]
+        const delegatesAPI = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
+        let delegates = this.$site.headTags.find(el => el[0] === 'delegateData')[1]
+        const unikids = delegates.map(delegate => delegate.unikid)
+        const uniksAPI = await fetch("https://api.uns.network/api/v2/uniks/search", {
+            method: "POST",body: JSON.stringify({id: unikids})
+        }).then(res => res.json())
         
         delegates.forEach(delegate => {
-            const stat = res.data.find(el => el.username === delegate.username)
-            delegate.votes = stat.votes ? stat.votes : null
-            delegate.isResigned = stat.isResigned ? stat.isResigned : false
-            delegate.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000) / 1000 < 600 ? true : no
+            const delegateStat = delegatesAPI.data.find(el => el.username === delegate.unikid)
+            const delegateUnik = uniksAPI.data.find(el => el.id === delegate.unikid)
+            delegate.unikname = delegateUnik.defaultExplicitValue
+            delegate.rank = delegateStat.rank
+            delegate.votes = delegateStat.production.approval
+            delegate.isResigned = delegateStat.isResigned
+            delegate.forger = delegateStat.rank < 24 ? true : false
+            delegate.type = delegateStat.type
+            // 600 secondes = 10 minutes
+            delegate.isLive = (Date.now() - delegateStat.blocks.last.timestamp.unix*1000) / 1000 < 600 ? 'active' : 'not active'
         })
-        this.$data.delegates = delegates.sort((a, b) => a.title.localeCompare(b.title))
+        delegates = delegates.sort((a, b) => b.forger - a.forger || a.unikname.localeCompare(b.unikname))
+        this.$data.delegates = delegates.filter(delegate => delegate.type === 'individual')
     },
     data() {
         return {
@@ -64,7 +87,7 @@ export default {
   justify-content center
   margin 40px -20px 20px 0
 .card
-  height 19em
+  height 22em
   width 17em
   min-width 17em
   display -webkit-box
@@ -90,6 +113,10 @@ export default {
         color: black
         text-decoration: none
   .text-content
+    .unikid
+        h3
+            margin-bottom: 5px
+        margin-bottom: 15px
     padding-left: 10px
     padding-right 10px
     font-size 0.9rem
@@ -108,4 +135,20 @@ export default {
         p
             padding: 5px;
             display: inline
+.unik-badge
+  padding: 0.4em 1em
+  border-radius: 20px
+  color: #fff
+  align-items: center
+.unik-badge img
+  margin-right: 0.5em
+  margin-right: 0.5em
+  width: 1.2em
+  height: 1.2em
+.unik-badge.unik-badge-individual
+  background-color: #c6c6ff
+.unik-badge.unik-badge-organization
+  background-color: #6263b1
+.unik-badge.unik-badge-network
+  background-color: #16c8c0
 </style>
