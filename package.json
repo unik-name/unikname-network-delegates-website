@@ -10,11 +10,15 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "build": "yarn docs:build"
+    "build": "yarn docs:build",
+    "check-links": "yarn build && hyperlink -r -p -i docs/.vuepress/dist/index.html | tap-spot"
   },
   "devDependencies": {
     "@spacelephantlabs/vuepress-plugin-matomo": "spacelephantlabs/vuepress-plugin-matomo",
     "@vuepress/shared-utils": "^1.8.2",
     "vuepress": "^1.8.2"
+  },
+  "dependencies": {
+    "hyperlink": "^4.6.1"
   }
 }

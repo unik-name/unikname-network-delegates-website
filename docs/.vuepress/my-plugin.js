@@ -20,7 +20,6 @@ module.exports = (options, context) => {
       const { siteConfig } = context;
       if (!siteConfig.head) siteConfig.head = [];
       const delegatesPages = pages.filter(page => !page.regularPath.includes('embedded'))
-      console.log(delegatesPages.length)
       siteConfig.head.push(['delegateData', delegatesPages.map(page => page.frontmatter)])
     },
 

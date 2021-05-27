@@ -2,7 +2,11 @@
   <main class="page">
     <slot name="top" />
 
+    <DelegateDetail class="theme-default-content"/>
+
     <Content class="theme-default-content" />
+
+
    
   </main>
 </template>
