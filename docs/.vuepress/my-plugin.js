@@ -26,7 +26,7 @@ module.exports = (options, context) => {
     generated(pagePaths) {},
 
     async additionalPages () {
-      return pages.map(page => {return {path: `${page.regularPath}embedded`, content: page._strippedContent}})
+      return pages.map(page => {return {path: `${page.regularPath}embedded.html`, content: page._strippedContent}})
     }
   }
 }

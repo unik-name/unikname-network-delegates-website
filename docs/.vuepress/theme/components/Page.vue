@@ -28,9 +28,6 @@ export default {
   padding-bottom 2rem
   display block
 
-.delegate-detail
-  padding 4rem 0rem 0rem 12.5rem
-
 .pagefooter
   padding 2rem 0rem 0rem 2rem
 </style>
