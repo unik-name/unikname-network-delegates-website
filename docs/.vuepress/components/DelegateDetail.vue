@@ -1,5 +1,5 @@
 <template>
-<div class="delegate-details">
+<div>
     <div class="top">
         <div v-if="delegate.unikid">
             <img class="logo" height="100" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)"/>
