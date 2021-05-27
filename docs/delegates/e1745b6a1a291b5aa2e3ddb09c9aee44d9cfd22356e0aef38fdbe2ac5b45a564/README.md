@@ -1,9 +1,6 @@
 ---
-title: unikid3
-username: 6a5418cddb18515517a260bd47fc0e038544e9cc4ac3dac9206523cc366eaa63
-date: 2021-05-15
-twitter: https://twitter.com/test
-summary: hey I am the third validator
+unikid: e1745b6a1a291b5aa2e3ddb09c9aee44d9cfd22356e0aef38fdbe2ac5b45a564
+twitter: random
 ---
 
 <DelegateDetail />

@@ -1,26 +1,30 @@
 <template>
 <div>
     <div class="top">
-        <div v-if="delegate.title">
-            <img height="100" width="100" alt="logo" :src="require(`@assets/${delegate.title}/logo.png`)"/>
-            <h2>{{ delegate.title }}</h2>
+        <div v-if="delegate.unikid">
+            <img class="logo" height="100" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)"/>
         </div>
+
+        <h2 v-if="delegate.unikname">@{{ delegate.unikname }}</h2>
+        <span v-if="delegate.type" :class="`unik-badge unik-badge-${delegate.type}`">
+            <img :src="require(`@assets/logo-${delegate.type}.png`)" alt="" class="unik-view-logo" />
+            {{delegate.type}}
+        </span>
         
-        <div v-if="delegate.username">
-            <a target="_blank" :href="`https://explorer.uns.network/uniks/${delegate.username}`">check on explorer</a>
-        </div>
         <div class="socials">
-            <p v-if="delegate.twitter"><a target="_blank" :href="delegate.twitter"><i class="fa fa-twitter" />twitter</a></p>
-            <p v-if="delegate.github"><a target="_blank" :href="delegate.github"><i class="fa fa-github" />github</a></p>
+            <a target="_blank" :href="`https://explorer.uns.network/uniks/${delegate.unikid}`"><i class="fa fa-globe" />explorer</a>
+            <p v-if="delegate.twitter"><a target="_blank" :href="`https://twitter.com/${delegate.twitter}`"><i class="fa fa-twitter" />twitter</a></p>
+            <p v-if="delegate.github"><a target="_blank" :href="`https://github.com/${delegate.github}`"><i class="fa fa-github" />github</a></p>
             <p v-if="delegate.email"><a target="_blank" :href="`mailto:${delegate.email}`"><i class="fa fa-envelope" />email</a></p>
             <p v-if="delegate.website"><a target="_blank" :href="delegate.website"><i class="fa fa-globe" />website</a></p>
+            <p v-if="delegate.forum"><a target="_blank" :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"><i class="fa fa-globe" />forum</a></p>
         </div>
     </div>
     <div class="details">
-        <p>live: {{ delegate.isLive }}</p>
-        <p>type: {{ delegate.type }}</p>
         <p>rank: {{ delegate.rank }}</p>
         <p>votes: {{ (delegate.votes/10**8).toFixed(0) }} ({{ delegate.votes_percent}}%)</p>
+        <p>status: {{ delegate.isLive }}</p>
+        <p v-if="delegate.forger">forger: {{delegate.forger}}</p>
     </div>
 <script src="https://kit.fontawesome.com/ab9d8096cd.js" crossorigin="anonymous" />     
 </div>
@@ -29,15 +33,22 @@
 <script>
 export default {
     async beforeMount() {
-        const res = await fetch("https://api.uns.network/api/v2/delegates?limit=23").then(res => res.json())
-        const stat = res.data.find(el => el.username === this.$page.frontmatter.username)
-        console.log(stat)
-        this.$page.frontmatter.rank = stat.rank 
+        const delegatesAPI = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
+        const uniksAPI = await fetch("https://api.uns.network/api/v2/uniks/search", {
+            method: "POST",body: JSON.stringify({id: this.$page.frontmatter.unikid})
+        }).then(res => res.json())
+        console.log(uniksAPI)
+
+        const delegateUnik = uniksAPI.data.find(el => el.id === this.$page.frontmatter.unikid)
+        const stat = delegatesAPI.data.find(el => el.username === this.$page.frontmatter.unikid)
+        this.$page.frontmatter.unikname = delegateUnik.defaultExplicitValue
+        this.$page.frontmatter.rank = stat.rank
         this.$page.frontmatter.votes = stat.votes
         this.$page.frontmatter.votes_percent = stat.production.approval
         this.$page.frontmatter.type = stat.type
         this.$page.frontmatter.isResigned = stat.isResigned
-        this.$page.frontmatter.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000) / 1000 < 600 ? true : no
+        this.$page.frontmatter.forger = stat.rank < 24 ? 'true' : 'false'
+        this.$page.frontmatter.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000) / 1000 < 600 ? 'active' : 'not active'
         this.$data.delegate = this.$page.frontmatter        
     },
     data() {
@@ -52,7 +63,7 @@ export default {
 .top
     padding: 20px;
     overflow: hidden;
-    img
+    .logo
         margin-right: 15px;
         float: left;
     h2, p
@@ -67,9 +78,26 @@ export default {
         p
             padding: 5px;
             display: inline
-
-
 .details
     p
         margin: 1px
+
+.unik-badge
+  width: 110px
+  padding: 0.25em 1em
+  border-radius: 20px
+  color: #fff
+  display: flex
+  flex-direction: row
+  margin-right: 0.5em
+.unik-badge img
+  margin-right: 0.5em
+  width: 1.2em
+  height: 1.2em
+.unik-badge.unik-badge-individual
+  background-color: #c6c6ff
+.unik-badge.unik-badge-organization
+  background-color: #6263b1
+.unik-badge.unik-badge-network
+  background-color: #16c8c0
 </style>

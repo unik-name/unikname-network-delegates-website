@@ -1,10 +1,6 @@
 ---
-title: unikid4
-username: 5e58d890775b8bb8bf81cd38e4665a820ba1528bc192f0ef5bc21bf4dd26ec1b
-date: 2021-05-15
-twitter: https://twitter.com/test
-github: https://github.com
-summary: hey I am the fourth validator
+unikid: 6a5418cddb18515517a260bd47fc0e038544e9cc4ac3dac9206523cc366eaa63
+twitter: test
 ---
 
 <DelegateDetail />

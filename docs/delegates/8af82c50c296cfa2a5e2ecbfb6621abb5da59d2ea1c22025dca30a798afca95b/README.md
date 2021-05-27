@@ -1,9 +1,7 @@
 ---
-title: unikid2
-username: ccabe13311350a306d510c3484889a151eda9a1b61b5fe4d346fd3b1eeb42c25
-date: 2021-05-11
-twitter: https://twitter.com/random
-summary: hey I am the second validator
+unikid: 8af82c50c296cfa2a5e2ecbfb6621abb5da59d2ea1c22025dca30a798afca95b
+twitter: test
+github: test
 ---
 
 <DelegateDetail />
