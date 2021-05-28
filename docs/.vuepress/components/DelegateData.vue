@@ -1,5 +1,10 @@
 <template>
 <div>
+
+    <span v-if="loading">
+        loading...
+    </span>
+
     <span class="card-container">
             <div v-for="delegate in delegates">
                 <a :href="`/delegates/${delegate.unikid}`">
@@ -66,13 +71,17 @@ export default {
             if (delegate.forger) {
                 delegate.isLive = (Date.now() - delegateStat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
             }
+            delegate.notCompleted = delegate.notCompleted ? true : false
         })
         delegates = delegates.sort((a, b) => b.forger - a.forger || a.unikname.localeCompare(b.unikname))
+        delegates = delegates.sort((a, b) => a.notCompleted - b.notCompleted)
         this.$data.delegates = delegates.filter(delegate => delegate.type === 'individual')
+        this.$data.loading = false
     },
     data() {
         return {
             delegates: [],
+            loading: true
         }
     },
 }
