@@ -1,8 +1,12 @@
 <template>
 <div>
-    <div class="top">
-        <div v-if="delegate.unikid">
-            <img class="logo" height="100" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)"/>
+    <div v-if="delegate.unikname" class="top">
+        <div v-if="delegate.notCompleted">
+            <p style="color: red">file not claimed by delegate</p>
+            <img class="logo" height="100" width="100" alt="logo" :src="require(`@assets/default-logo.png`)">
+        </div>
+        <div v-if="!delegate.notCompleted">
+            <img height="100" class="logo" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)">
         </div>
 
         <h2 v-if="delegate.unikname">@{{ delegate.unikname }}</h2>
@@ -22,9 +26,14 @@
     </div>
     <div class="details">
         <p>rank: {{ delegate.rank }}</p>
-        <p>votes: {{ (delegate.votes/10**8).toFixed(0) }} ({{ delegate.votes_percent}}%)</p>
-        <p>status: {{ delegate.isLive }}</p>
-        <p v-if="delegate.forger">forger: {{delegate.forger}}</p>
+        <p>votes: {{ delegate.votes_percent}}%</p>
+        <span v-if="delegate.forger">elected: 
+            <img :src="require(`@assets/check.svg`)" height="15px" width="15px" alt="status"/>
+            <p>status:<span :class="`status-${delegate.isLive}`">{{delegate.isLive}}</span></p>
+        </span>
+        <span v-else>elected: 
+            <img :src="require(`@assets/cross.svg`)" height="15px" width="15px" alt="status"/>
+        </span>                        
     </div>
 <script src="https://kit.fontawesome.com/ab9d8096cd.js" crossorigin="anonymous" />     
 </div>
@@ -34,21 +43,21 @@
 export default {
     async beforeMount() {
         const delegatesAPI = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
-        const uniksAPI = await fetch("https://api.uns.network/api/v2/uniks/search", {
-            method: "POST",body: JSON.stringify({id: this.$page.frontmatter.unikid})
-        }).then(res => res.json())
-
-        const delegateUnik = uniksAPI.data.find(el => el.id === this.$page.frontmatter.unikid)
         const stat = delegatesAPI.data.find(el => el.username === this.$page.frontmatter.unikid)
-        this.$page.frontmatter.unikname = delegateUnik.defaultExplicitValue
-        this.$page.frontmatter.rank = stat.rank
-        this.$page.frontmatter.votes = stat.votes
-        this.$page.frontmatter.votes_percent = stat.production.approval
-        this.$page.frontmatter.type = stat.type
-        this.$page.frontmatter.isResigned = stat.isResigned
-        this.$page.frontmatter.forger = stat.rank < 24 ? 'true' : 'false'
-        this.$page.frontmatter.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000) / 1000 < 600 ? 'active' : 'not active'
-        this.$data.delegate = this.$page.frontmatter        
+        const delegate = {}
+        delegate.unikid = this.$page.frontmatter.unikid
+        delegate.unikname = this.$page.frontmatter.unikname
+        delegate.notCompleted = this.$page.frontmatter.notCompleted ? true : false
+        delegate.rank = stat.rank
+        delegate.votes = stat.votes
+        delegate.votes_percent = stat.production.approval
+        delegate.type = stat.type
+        delegate.isResigned = stat.isResigned
+       delegate.forger = stat.rank < 24 ? true : false
+            if (delegate.forger) {
+                delegate.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
+            }
+        this.$data.delegate = delegate
     },
     data() {
         return {
@@ -79,7 +88,12 @@ export default {
 .details
     p
         margin: 1px
-
+    .status-active
+        margin-left: 5px
+        color: green
+    .status-not-active
+        margin-left: 5px
+        color: red
 .unik-badge
   width: 110px
   padding: 0.25em 1em

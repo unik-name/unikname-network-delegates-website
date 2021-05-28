@@ -5,7 +5,13 @@
                 <a :href="`/delegates/${delegate.unikid}`">
                     <div class="card">
                         <div class="card-header">
-                            <img height="100" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)">
+                            <div v-if="delegate.notCompleted">
+                                <p class="not-claimed">card not claimed</p>
+                                <img height="100" width="100" alt="logo" :src="require(`@assets/default-logo.png`)">
+                            </div>
+                            <div v-else>
+                                <img height="100" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)">
+                            </div>
                         </div>
                         <div class="text-content">
                             <div class="unikid">
@@ -25,13 +31,13 @@
                             <div class="description">
                                 <p class="resigned" v-if="delegate.isResigned">delegate resigned</p>
                                 <p>rank: {{delegate.rank}} / votes: {{delegate.votes}}%</p>
-                                <p>status: {{delegate.isLive}}</p>
-                                <p v-if="delegate.forger">elected: 
+                                <span v-if="delegate.forger">elected: 
                                     <img :src="require(`@assets/check.svg`)" height="15px" width="15px" alt="status"/>
-                                </p>
-                                <p v-else>elected: 
+                                    <p>status:<span :class="`status-${delegate.isLive}`">{{delegate.isLive}}</span></p>
+                                </span>
+                                <span v-else>elected: 
                                     <img :src="require(`@assets/cross.svg`)" height="15px" width="15px" alt="status"/>
-                                </p>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -48,22 +54,18 @@ export default {
     async beforeMount() {
         const delegatesAPI = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
         let delegates = this.$site.headTags.find(el => el[0] === 'delegateData')[1]
-        const unikids = delegates.map(delegate => delegate.unikid)
-        const uniksAPI = await fetch("https://api.uns.network/api/v2/uniks/search", {
-            method: "POST",body: JSON.stringify({id: unikids})
-        }).then(res => res.json())
         
         delegates.forEach(delegate => {
             const delegateStat = delegatesAPI.data.find(el => el.username === delegate.unikid)
-            const delegateUnik = uniksAPI.data.find(el => el.id === delegate.unikid)
-            delegate.unikname = delegateUnik.defaultExplicitValue
+            delegate.unikname = delegate.unikname
             delegate.rank = delegateStat.rank
             delegate.votes = delegateStat.production.approval
             delegate.isResigned = delegateStat.isResigned
-            delegate.forger = delegateStat.rank < 24 ? true : false
             delegate.type = delegateStat.type
-            // 600 secondes = 10 minutes
-            delegate.isLive = (Date.now() - delegateStat.blocks.last.timestamp.unix*1000) / 1000 < 600 ? 'active' : 'not active'
+            delegate.forger = delegateStat.rank < 24 ? true : false
+            if (delegate.forger) {
+                delegate.isLive = (Date.now() - delegateStat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
+            }
         })
         delegates = delegates.sort((a, b) => b.forger - a.forger || a.unikname.localeCompare(b.unikname))
         this.$data.delegates = delegates.filter(delegate => delegate.type === 'individual')
@@ -87,7 +89,7 @@ export default {
   justify-content center
   margin 40px -20px 20px 0
 .card
-  height 22em
+  height 21em
   width 17em
   min-width 17em
   display -webkit-box
@@ -107,6 +109,9 @@ export default {
   margin 0px 10px 10px 0px
   background-color #EFF6F6    
   .card-header
+    .not-claimed
+        color: red
+        margin: 0
     img
         padding-top: 10px;
     p
@@ -115,6 +120,7 @@ export default {
   .text-content
     .unikid
         h3
+            margin-top: 7px
             margin-bottom: 5px
         margin-bottom: 15px
     padding-left: 10px
@@ -126,6 +132,12 @@ export default {
         color #000
         font-weight 400
         margin-top 10px
+        .status-active
+            margin-left: 5px
+            color: green
+        .status-not-active
+            margin-left: 5px
+            color: red
         p
             margin: 1px
             font-size: 1rem
