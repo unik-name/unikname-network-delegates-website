@@ -5,7 +5,7 @@
             <p style="color: red">file not claimed by delegate</p>
             <img class="logo" height="100" width="100" alt="logo" :src="require(`@assets/default-logo.png`)">
         </div>
-        <div v-if="!delegate.notCompleted">
+        <div v-else>
             <img height="100" class="logo" width="100" alt="logo" :src="require(`@delegates/${delegate.unikid}/logo.png`)">
         </div>
 
@@ -24,7 +24,7 @@
             <p v-if="delegate.forum"><a target="_blank" :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"><i class="fa fa-globe" />forum</a></p>
         </div>
     </div>
-    <div class="details">
+    <div v-if="!loading" class="details">
         <p>rank: {{ delegate.rank }}</p>
         <p>votes: {{ delegate.votes_percent}}%</p>
         <span v-if="delegate.forger">elected: 
@@ -35,33 +35,38 @@
             <img :src="require(`@assets/cross.svg`)" height="15px" width="15px" alt="status"/>
         </span>                        
     </div>
+    <div v-else class="placeholder shimmer">
+        <div class="fake-text short"/>
+        <div class="fake-text medium"/>
+        <div class="fake-text medium"/>
+        <div class="fake-text"/>
+    </div>
 <script src="https://kit.fontawesome.com/ab9d8096cd.js" crossorigin="anonymous" />     
 </div>
 </template>
 
 <script>
 export default {
-    async beforeMount() {
+    created() {
+        this.$data.delegate = this.$page.frontmatter
+
+    },
+    async mounted() {
         const delegatesAPI = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
         const stat = delegatesAPI.data.find(el => el.username === this.$page.frontmatter.unikid)
-        const delegate = {}
-        delegate.unikid = this.$page.frontmatter.unikid
-        delegate.unikname = this.$page.frontmatter.unikname
-        delegate.notCompleted = this.$page.frontmatter.notCompleted ? true : false
-        delegate.rank = stat.rank
-        delegate.votes = stat.votes
-        delegate.votes_percent = stat.production.approval
-        delegate.type = stat.type
-        delegate.isResigned = stat.isResigned
-       delegate.forger = stat.rank < 24 ? true : false
-            if (delegate.forger) {
-                delegate.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
+        this.delegate.rank = stat.rank
+        this.delegate.votes = stat.votes
+        this.delegate.votes_percent = stat.production.approval
+        this.delegate.forger = stat.rank < 24 ? true : false
+            if (this.delegate.forger) {
+                this.delegate.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
             }
-        this.$data.delegate = delegate
+        this.loading = false
     },
     data() {
         return {
             delegate: {},
+            loading: true
         }
     },
 }
@@ -112,4 +117,38 @@ export default {
   background-color: #6263b1
 .unik-badge.unik-badge-network
   background-color: #16c8c0
+/* https://codesandbox.io/s/skeleton-placeholder-forked-9i8f7?file=/index.html:1365-1392 */ 
+.placeholder
+        padding: 20px
+        max-width: 150px
+    .fake-text
+        background: #dddddd
+        border-radius: 4px
+        height: 20px
+        margin-bottom: 5px
+    .fake-text.short
+        width: 25%
+    .fake-text.medium
+        width: 60%
+    .shimmer
+        overflow: hidden
+        position: relative
+    .shimmer::before
+        content: ""
+        position: absolute
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.4) 50%,
+          rgba(255, 255, 255, 0) 100%
+        )
+        height: 100%
+        width: 100%
+        z-index: 1
+        animation: shimmer 1s infinite
+    @keyframes shimmer
+        0%
+            transform: translateX(-100%)
+        100%
+            transform: translateX(100%)
 </style>

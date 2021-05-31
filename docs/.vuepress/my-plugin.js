@@ -3,6 +3,7 @@ const axios = require('axios')
 module.exports = (options, context) => {
   const pages = []
   let uniks = []
+  let delegates = []
 
   return {
     extendPageData($page) {
@@ -21,8 +22,8 @@ module.exports = (options, context) => {
     },
 
     async additionalPages () {
-      const delegatesAPI = await axios.get('https://api.uns.network/api/v2/delegates')
-      const unikids = delegatesAPI.data.data.filter(delegate => !delegate.username.includes('genesis')).map(delegate => delegate.username)
+      await axios.get('https://api.uns.network/api/v2/delegates').then(res => delegates = res.data.data)
+      const unikids = delegates.filter(delegate => !delegate.username.includes('genesis')).map(delegate => delegate.username)
       await axios.post('https://api.uns.network/api/v2/uniks/search', {id: unikids}).then(res => uniks = res.data.data)
 
       const additionalPages = pages.map(page => {return {path: `${page.regularPath}embedded.html`, content: page._strippedContent}})
@@ -39,12 +40,24 @@ module.exports = (options, context) => {
       const { siteConfig } = context;
       if (!siteConfig.head) siteConfig.head = [];
       pages.forEach(page => {
-        const data = uniks.find(unikid => unikid.id === page.regularPath.split('/')[2])
+        const unik = uniks.find(unik => unik.id === page.regularPath.split('/')[2])
+        const delegate = delegates.find(delegate => delegate.username === page.regularPath.split('/')[2])
+        // isResigned?
         if (Object.keys(page.frontmatter).length === 0) {
-          page.frontmatter = {unikid: page.regularPath.split('/')[2], ownerId: data.ownerId, unikname: data.defaultExplicitValue, notCompleted: true}
+          page.frontmatter = {
+            unikid: page.regularPath.split('/')[2],
+            ownerId: unik.ownerId,
+            unikname: unik.defaultExplicitValue,
+            notCompleted: true,
+            type: delegate.type,
+            forger: delegate.rank < 24 ? true : false
+          }
         } else {
-          page.frontmatter.ownerId = data.ownerId
-          page.frontmatter.unikname = data.defaultExplicitValue
+          page.frontmatter.ownerId = unik.ownerId
+          page.frontmatter.unikname = unik.defaultExplicitValue,
+          page.frontmatter.notCompleted =  false,
+          page.frontmatter.type = delegate.type
+          page.frontmatter.forger = delegate.rank < 24 ? true : false
         }
         if (page.regularPath.includes('embedded')) {
           page.frontmatter.layout = 'DelegateLayout'
@@ -55,8 +68,6 @@ module.exports = (options, context) => {
       pagesWithoutFrontmatter.forEach(page => page.frontmatter = {unikid: page.regularPath.split('/')[2], notCompleted: true})
       const delegatesPages = pages.filter(page => !page.regularPath.includes('embedded'))
       siteConfig.head.push(['delegateData', delegatesPages.map(page => page.frontmatter)])
-    },
-
-    generated(pagePaths) {},
+    }
   }
 }
