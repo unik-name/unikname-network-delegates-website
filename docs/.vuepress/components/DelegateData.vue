@@ -1,10 +1,6 @@
+
 <template>
 <div>
-
-    <span v-if="loading">
-        loading...
-    </span>
-
     <span class="card-container">
             <div v-for="delegate in delegates">
                 <a :href="`/delegates/${delegate.unikid}`">
@@ -33,8 +29,8 @@
                                 <p v-if="delegate.website"><a target="_blank" :href="delegate.website"><i class="fa fa-globe" />website</a></p>
                                 <p v-if="delegate.forum"><a target="_blank" :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"><i class="fa fa-globe" />forum</a></p>
                             </div>
-                            <div class="description">
-                                <p class="resigned" v-if="delegate.isResigned">delegate resigned</p>
+                            <div v-if="!loading" class="description">
+                                <!-- <p class="resigned" v-if="delegate.isResigned">delegate resigned</p> -->
                                 <p>rank: {{delegate.rank}} / votes: {{delegate.votes}}%</p>
                                 <span v-if="delegate.forger">elected: 
                                     <img :src="require(`@assets/check.svg`)" height="15px" width="15px" alt="status"/>
@@ -43,6 +39,11 @@
                                 <span v-else>elected: 
                                     <img :src="require(`@assets/cross.svg`)" height="15px" width="15px" alt="status"/>
                                 </span>
+                            </div>
+                            <div v-else class="placeholder shimmer">
+                                <div class="fake-text medium"/>
+                                <div class="fake-text short"/>
+                                <div class="fake-text"/>
                             </div>
                         </div>
                     </div>
@@ -56,34 +57,33 @@
 
 <script>
 export default {
-    async beforeMount() {
-        const delegatesAPI = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
+    created () {
         let delegates = this.$site.headTags.find(el => el[0] === 'delegateData')[1]
-        
-        delegates.forEach(delegate => {
-            const delegateStat = delegatesAPI.data.find(el => el.username === delegate.unikid)
-            delegate.unikname = delegate.unikname
-            delegate.rank = delegateStat.rank
-            delegate.votes = delegateStat.production.approval
-            delegate.isResigned = delegateStat.isResigned
-            delegate.type = delegateStat.type
-            delegate.forger = delegateStat.rank < 24 ? true : false
-            if (delegate.forger) {
-                delegate.isLive = (Date.now() - delegateStat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
-            }
-            delegate.notCompleted = delegate.notCompleted ? true : false
-        })
+
+        delegates = delegates.filter(delegate => delegate.type === 'individual')
         delegates = delegates.sort((a, b) => b.forger - a.forger || a.unikname.localeCompare(b.unikname))
         delegates = delegates.sort((a, b) => a.notCompleted - b.notCompleted)
-        this.$data.delegates = delegates.filter(delegate => delegate.type === 'individual')
-        this.$data.loading = false
+        this.$data.delegates = delegates
+    },
+    async mounted() {
+        const res = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
+        const delegates = this.delegates
+        this.delegates.forEach(delegate => {
+            const data = res.data.find(el => el.username === delegate.unikid)
+            delegate.rank = data.rank
+            delegate.votes = data.production.approval
+            if (delegate.forger) {
+                delegate.isLive = (Date.now() - data.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
+            }
+        })
+        this.loading = false
     },
     data() {
         return {
             delegates: [],
             loading: true
         }
-    },
+    }
 }
 </script>
 
@@ -122,7 +122,7 @@ export default {
         color: red
         margin: 0
     img
-        padding-top: 10px;
+        padding-top: 10px
     p
         color: black
         text-decoration: none
@@ -154,7 +154,7 @@ export default {
         i
             padding-right: 6px
         p
-            padding: 5px;
+            padding: 5px
             display: inline
 .unik-badge
   padding: 0.4em 1em
@@ -172,4 +172,39 @@ export default {
   background-color: #6263b1
 .unik-badge.unik-badge-network
   background-color: #16c8c0
+
+/* https://codesandbox.io/s/skeleton-placeholder-forked-9i8f7?file=/index.html:1365-1392 */ 
+.placeholder
+        padding: 20px
+        max-width: 300px
+    .fake-text
+        background: #dddddd
+        border-radius: 4px
+        height: 20px
+        margin-bottom: 5px
+    .fake-text.short
+        width: 25%
+    .fake-text.medium
+        width: 60%
+    .shimmer
+        overflow: hidden
+        position: relative
+    .shimmer::before
+        content: ""
+        position: absolute
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.4) 50%,
+          rgba(255, 255, 255, 0) 100%
+        )
+        height: 100%
+        width: 100%
+        z-index: 1
+        animation: shimmer 1s infinite
+    @keyframes shimmer
+        0%
+            transform: translateX(-100%)
+        100%
+            transform: translateX(100%)
 </style>
