@@ -7,7 +7,10 @@
                     <div class="card">
                         <div class="card-header">
                             <div v-if="delegate.notCompleted">
-                                <p class="not-claimed">card not claimed</p>
+                                <p class="not-claimed">
+                                    <a class="not-claimed" target="_blank" href="https://github.com/unik-name/uns-delegates-website/blob/master/README.md">
+                                    claim my profile</a>
+                                </p>
                                 <img height="100" width="100" alt="logo" :src="require(`@assets/default-logo.png`)">
                             </div>
                             <div v-else>
@@ -30,7 +33,6 @@
                                 <p v-if="delegate.forum"><a target="_blank" :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"><i class="fa fa-globe" />forum</a></p>
                             </div>
                             <div v-if="!loading" class="description">
-                                <!-- <p class="resigned" v-if="delegate.isResigned">delegate resigned</p> -->
                                 <p>rank: {{delegate.rank}} / votes: {{delegate.votes}}%</p>
                                 <span v-if="delegate.forger">elected: 
                                     <img :src="require(`@assets/check.svg`)" height="15px" width="15px" alt="status"/>
@@ -121,6 +123,8 @@ export default {
     .not-claimed
         color: red
         margin: 0
+        a
+            text-decoration: underline
     img
         padding-top: 10px
     p
@@ -163,7 +167,7 @@ export default {
   align-items: center
 .unik-badge img
   margin-right: 0.5em
-  margin-right: 0.5em
+  margin-top: 0.5em
   width: 1.2em
   height: 1.2em
 .unik-badge.unik-badge-individual
