@@ -2,7 +2,10 @@
 <div>
     <div v-if="delegate.unikname" class="top">
         <div v-if="delegate.notCompleted">
-            <p style="color: red">file not claimed by delegate</p>
+            <p>
+                <a target="_blank" href="https://github.com/unik-name/uns-delegates-website/blob/master/README.md">
+                👉 Claim this delegate profile</a>
+            </p>
             <img class="logo" height="100" width="100" alt="logo" :src="require(`@assets/default-logo.png`)">
         </div>
         <div v-else>
@@ -78,6 +81,11 @@ export default {
     .logo
         margin-right: 15px;
         float: left;
+    .not-claimed
+        color: red
+        margin: 0
+        a
+            text-decoration: underline
     h2, p
         margin-left: 15px;
         display: block;

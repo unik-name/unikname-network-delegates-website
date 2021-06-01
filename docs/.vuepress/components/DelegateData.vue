@@ -4,13 +4,10 @@
     <span class="card-container">
             <div v-for="delegate in delegates">
                 <a :href="`/delegates/${delegate.unikid}`">
+                <!-- redirect to README.md if not claimed -->
                     <div class="card">
                         <div class="card-header">
                             <div v-if="delegate.notCompleted">
-                                <p class="not-claimed">
-                                    <a class="not-claimed" target="_blank" href="https://github.com/unik-name/uns-delegates-website/blob/master/README.md">
-                                    claim my profile</a>
-                                </p>
                                 <img height="100" width="100" alt="logo" :src="require(`@assets/default-logo.png`)">
                             </div>
                             <div v-else>
@@ -25,12 +22,18 @@
                                         {{ delegate.type }}
                                 </span>
                             </div>
-                            <div class="socials">
+                            <div v-if="!delegate.notCompleted" class="socials">
                                 <p v-if="delegate.twitter"><a target="_blank" :href="`https://twitter.com/${delegate.twitter}`"><i class="fa fa-twitter" />twitter</a></p>
                                 <p v-if="delegate.github"><a target="_blank" :href="`https://github.com/${delegate.github}`"><i class="fa fa-github" />github</a></p>
                                 <p v-if="delegate.email"><a target="_blank" :href="`mailto:${delegate.email}`"><i class="fa fa-envelope" />email</a></p>
                                 <p v-if="delegate.website"><a target="_blank" :href="delegate.website"><i class="fa fa-globe" />website</a></p>
                                 <p v-if="delegate.forum"><a target="_blank" :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"><i class="fa fa-globe" />forum</a></p>
+                            </div>
+                            <div v-else>
+                                <p>
+                                    <a target="_blank" href="https://github.com/unik-name/uns-delegates-website/blob/master/README.md">
+                                     👉 Claim this delegate profile</a>
+                                 </p>
                             </div>
                             <div v-if="!loading" class="description">
                                 <p>rank: {{delegate.rank}} / votes: {{delegate.votes}}%</p>
@@ -60,12 +63,7 @@
 <script>
 export default {
     created () {
-        let delegates = this.$site.headTags.find(el => el[0] === 'delegateData')[1]
-
-        delegates = delegates.filter(delegate => delegate.type === 'individual')
-        delegates = delegates.sort((a, b) => b.forger - a.forger || a.unikname.localeCompare(b.unikname))
-        delegates = delegates.sort((a, b) => a.notCompleted - b.notCompleted)
-        this.$data.delegates = delegates
+        this.$data.delegates = this.$site.headTags.find(el => el[0] === 'delegateData')[1]
     },
     async mounted() {
         const res = await fetch("https://api.uns.network/api/v2/delegates").then(res => res.json())
@@ -98,7 +96,6 @@ export default {
   -ms-flex-direction row
   flex-direction row
   justify-content center
-  margin 40px -20px 20px 0
 .card
   height 21em
   width 17em

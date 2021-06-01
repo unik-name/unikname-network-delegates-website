@@ -1,21 +1,14 @@
 # uns-delegates
 Who are the UNS delegates? 👉 https://delegates.uns.network
+ 
+__uns.network delegates__ is an open source platform with no fees that allows delegates to present himself
 
-## How do I add myself to the website?
-- make a fork of the repo
-- add your unikname
-    - create a directory with the name of your unikid in the folder ```./docs/delegates/```
-    - in your folder create a README.md file and complete following fields:
-        * between the balise `--- X ---`
-            * require:
-                - unikid: your unikid
-            * optionals:
-                - twitter, github, forum: put only your username
-                - email, website
-        * content
-            * ##Summary
-            * ##Contributions
-    - add a picture of you with and name it logo.png
-- and finally make a pull request
+## Create my delegate profile
+- Fork this repo
+- Add your profile by creating a folder with the name of your unikid here ```./docs/delegates/```
+- Add a file named `README.md` inside it
+- Take example from the file `_example.md` and personalize yours.
+- Add your picture/logo in your folder and name it `logo.png` (the picture must be 100kb maximum ⚠️)
+- Make a pull request with title: New delegate profile: @{{your unikname}}
 
-you can see an example [here](docs/delegates/0013508e8f82cb1ea0f26e426ee35892e45a27f5d0f16b9b1de6109cfc663d2c)
+To submit a suggestion, report a bug, ask for help, you can also simply [open an issue on this repo](https://github.com/unik-name/uns-delegates-website/issues/new)
