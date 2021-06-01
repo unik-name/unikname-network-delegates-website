@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-if="delegate.unikname" class="top">
+    <div v-if="delegate.unikname" class="top" :class="delegate.format">
         <div v-if="delegate.notCompleted">
             <p>
                 <a target="_blank" href="https://github.com/unik-name/uns-delegates-website/blob/master/README.md">
@@ -51,7 +51,6 @@
 <script>
 export default {
     created() {
-        console.log(this.$page.frontmatter.layout)
         this.$data.delegate = this.$page.frontmatter
 
     },
@@ -77,6 +76,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.embedded
+    margin-top: 0!important
 .top
     overflow: hidden;
     .logo
