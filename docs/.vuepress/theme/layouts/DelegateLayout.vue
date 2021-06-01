@@ -6,10 +6,12 @@
     @touchend="onTouchEnd"
   >
 
-  <Navbar
+    <!--
+    <Navbar
       v-if="shouldShowNavbar"
       @toggle-sidebar="toggleSidebar"
     />
+    -->
 
     <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
 

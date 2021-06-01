@@ -59,9 +59,10 @@ module.exports = (options, context) => {
           page.frontmatter.forger = delegate.rank < 24 ? true : false
         }
         if (page.regularPath.includes('embedded')) {
-          page.frontmatter.layout = 'DelegateEmbeddedLayout'
-        } else {
           page.frontmatter.layout = 'DelegateLayout'
+          page.frontmatter.format = 'embedded'
+        } else {
+          page.frontmatter.format = 'complete'
         }
       })
 
