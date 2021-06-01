@@ -7,7 +7,7 @@ module.exports = (options, context) => {
 
   return {
     extendPageData($page) {
-      if ($page.regularPath.includes("delegates") && !$page.regularPath.includes("embedded")) {
+      if ($page.regularPath.includes("delegates") && !$page.regularPath.includes("embedded") && !$page.regularPath.includes('_')) {
         pages.push($page)
       }
       if ($page.regularPath.includes("embedded")) {
@@ -42,7 +42,6 @@ module.exports = (options, context) => {
       pages.forEach(page => {
         const unik = uniks.find(unik => unik.id === page.regularPath.split('/')[2])
         const delegate = delegates.find(delegate => delegate.username === page.regularPath.split('/')[2])
-        // isResigned?
         if (Object.keys(page.frontmatter).length === 0) {
           page.frontmatter = {
             unikid: page.regularPath.split('/')[2],
@@ -67,7 +66,17 @@ module.exports = (options, context) => {
       const pagesWithoutFrontmatter = pages.filter(page => Object.keys(page.frontmatter).length === 0)
       pagesWithoutFrontmatter.forEach(page => page.frontmatter = {unikid: page.regularPath.split('/')[2], notCompleted: true})
       const delegatesPages = pages.filter(page => !page.regularPath.includes('embedded'))
-      siteConfig.head.push(['delegateData', delegatesPages.map(page => page.frontmatter)])
+
+      let finalData = delegatesPages.map(page => page.frontmatter)
+
+      // keep only delegates of type individual
+      finalData = finalData.filter(delegate => delegate.type === 'individual')
+      // sort by forger status and alphabetically
+      finalData = finalData.sort((a, b) => b.forger - a.forger || a.unikname.localeCompare(b.unikname))
+      // sort if delegate completed his profile
+      finalData = finalData.sort((a, b) => a.notCompleted - b.notCompleted)
+
+      siteConfig.head.push(['delegateData', finalData])
     }
   }
 }

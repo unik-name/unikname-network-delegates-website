@@ -9,8 +9,16 @@ website: https://qsvtr.fr
 
 
 ## Summary
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.  
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Hello unik lovers, 
+
+My name is Quentin (aka @qsvtr), a French student in IT, interested by cybersecurity, blockchain and cryptocurrencies.  
+I am a fervent supporter of the uns.network project since October 2019 with the tesnet.    
+Like all of us I'm involved in the protection of personal data and privacy life, that's why I chose to be delegate and to secure the network.
+
+To follow my performance you check my uptime [here](https://stats.uptimerobot.com/RBv5QfrYMv) (since 1st june 2021)
+
+## Rewards
+I plan to donate part of my earnings to those who will support me, I will keep you posted :)
 
 ## Contributions
 - **[2021]** delegates website: 
