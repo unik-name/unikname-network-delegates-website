@@ -60,6 +60,8 @@ module.exports = (options, context) => {
         }
         if (page.regularPath.includes('embedded')) {
           page.frontmatter.layout = 'DelegateEmbeddedLayout'
+        } else {
+          page.frontmatter.layout = 'DelegateLayout'
         }
       })
 
