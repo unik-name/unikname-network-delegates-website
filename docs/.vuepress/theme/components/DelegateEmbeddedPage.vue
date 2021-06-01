@@ -5,6 +5,8 @@
     <DelegateDetail class="theme-default-content"/>
 
     <Content class="theme-default-content" />
+
+
    
   </main>
 </template>
@@ -22,6 +24,8 @@ export default {
 <style lang="stylus">
 @require '../styles/wrapper.styl'
 
+.theme-default-content:not(.custom) > *:first-child
+  margin-top: 0
 .page
   padding-bottom 2rem
   display block
