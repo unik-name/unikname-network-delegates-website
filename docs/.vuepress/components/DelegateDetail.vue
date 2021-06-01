@@ -51,6 +51,7 @@
 <script>
 export default {
     created() {
+        console.log(this.$page.frontmatter.layout)
         this.$data.delegate = this.$page.frontmatter
 
     },

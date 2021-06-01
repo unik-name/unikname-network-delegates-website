@@ -11,7 +11,7 @@ website: https://qsvtr.fr
 ## Summary
 Hello unik lovers, 
 
-My name is Quentin (aka @qsvtr), a French student in IT, interested by cybersecurity, blockchain and cryptocurrencies.  
+My name is Quentin (aka @qsvtr), a French student in IT interested by cybersecurity, blockchain and cryptocurrencies.  
 I am a fervent supporter of the uns.network project since October 2019 with the tesnet.    
 Like all of us I'm involved in the protection of personal data and privacy life, that's why I chose to be delegate and to secure the network.
 
