@@ -61,9 +61,9 @@ export default {
         this.delegate.votes = stat.votes
         this.delegate.votes_percent = stat.production.approval
         this.delegate.forger = stat.rank < 24 ? true : false
-            if (this.delegate.forger) {
-                this.delegate.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
-            }
+        if (this.delegate.forger) {
+            this.delegate.isLive = (Date.now() - stat.blocks.last.timestamp.unix*1000)/1000 < 600 ? 'active' : 'not active'
+        }    
         this.loading = false
     },
     data() {
