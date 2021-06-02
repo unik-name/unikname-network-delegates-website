@@ -16,9 +16,7 @@
   "devDependencies": {
     "@spacelephantlabs/vuepress-plugin-matomo": "spacelephantlabs/vuepress-plugin-matomo",
     "@vuepress/shared-utils": "^1.8.2",
-    "vuepress": "^1.8.2"
-  },
-  "dependencies": {
+    "vuepress": "^1.8.2",
     "axios": "^0.21.1",
     "hyperlink": "^4.6.1"
   }
