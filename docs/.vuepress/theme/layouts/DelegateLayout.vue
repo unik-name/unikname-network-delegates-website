@@ -5,57 +5,35 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
+
+    <!--
     <Navbar
       v-if="shouldShowNavbar"
       @toggle-sidebar="toggleSidebar"
     />
+    -->
 
-    <div
-      class="sidebar-mask"
-      @click="toggleSidebar(false)"
-    ></div>
+    <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
 
-    <Sidebar
-      :items="sidebarItems"
-      @toggle-sidebar="toggleSidebar"
-    >
-      <slot
-        name="sidebar-top"
-        #top
-      />
-      <slot
-        name="sidebar-bottom"
-        #bottom
-      />
+    <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
+      <slot name="sidebar-top" #top/>
+      <slot name="sidebar-bottom" #bottom/>
     </Sidebar>
 
-    <Home v-if="$page.frontmatter.home"/>
-
-    <Page
-      v-else
-      :sidebar-items="sidebarItems"
-    >
-      <slot
-        name="page-top"
-        #top
-      />
-      <slot
-        name="page-bottom"
-        #bottom
-      />
-    </Page>
+    <DelegatePage :sidebar-items="sidebarItems">
+    </DelegatePage>
   </div>
 </template>
 
 <script>
 import Home from '@theme/components/Home.vue'
 import Navbar from '@theme/components/Navbar.vue'
-import Page from '@theme/components/Page.vue'
+import DelegatePage from '@theme/components/DelegatePage.vue'
 import Sidebar from '@theme/components/Sidebar.vue'
 import { resolveSidebarItems } from '../util'
 
 export default {
-  components: { Home, Page, Sidebar, Navbar },
+  components: { Home, DelegatePage, Sidebar, Navbar },
 
   data () {
     return {

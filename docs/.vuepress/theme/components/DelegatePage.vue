@@ -5,9 +5,7 @@
     <DelegateDetail class="theme-default-content"/>
 
     <Content class="theme-default-content" />
-
-    <Footer class="pagefooter" />
-    
+   
   </main>
 </template>
 
@@ -23,7 +21,8 @@ export default {
 
 <style lang="stylus">
 @require '../styles/wrapper.styl'
-
+.theme-default-content:not(.custom)>:first-child
+  margin-top: 3.5rem
 .page
   padding-bottom 2rem
   display block

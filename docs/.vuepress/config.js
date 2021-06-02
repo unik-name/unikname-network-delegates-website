@@ -1,4 +1,4 @@
-const { slugify: vuePressSlugify } = require("@vuepress/shared-utils");
+const { slugify: vuePressSlugify, path } = require("@vuepress/shared-utils");
 
 function customSlugifyToHandleBadges(str) {
   // Remove badges
@@ -6,35 +6,53 @@ function customSlugifyToHandleBadges(str) {
 }
 
 module.exports = {
-  title: "The uns Delegates Website!",
-  title2: "uns delegates (Universal-Name-System)",
+  title: "uns.network delegates",
   description:
-    "description 1",
-  description2:
-    "description 2",
-  plugins: {
-    sitemap: {
-      hostname: "#",
-    },
-    "@vuepress/last-updated": {
-      transformer: (timestamp, lang) => {
-        // UTC date (without time) as ISO format: 2019-09-17
-        return new Date(timestamp).toISOString().split("T")[0];
-      },
-    },
-    "@vuepress/back-to-top": {},
-    tabs: {},
-    "@goy/svg-icons": {},
-    "vuepress-plugin-container": {
-      type: "information",
-      defaultTitle: "",
-      before: '<div class="information">',
-      after: "</div>",
-    },
-    "@spacelephantlabs/vuepress-plugin-matomo": {
-      siteId: 2,
-    }
-  },
+    "Explore the delegate's profile of the uns.network blockchain",
+  plugins: [
+    [
+      "sitemap",
+      {
+        hostname: "#",
+      }
+    ],
+    [
+      "@vuepress/last-updated",
+      {
+        transformer: (timestamp, lang) => {
+          // UTC date (without time) as ISO format: 2019-09-17
+          return new Date(timestamp).toISOString().split("T")[0];
+        }
+      }
+    ],
+    [
+      "@vuepress/back-to-top", {}
+    ],
+    [
+      "tabs", {},
+    ],
+    [
+      "@goy/svg-icons", {}
+    ],
+    [
+      "vuepress-plugin-container",
+      {
+        type: "information",
+        defaultTitle: "",
+        before: '<div class="information">',
+        after: "</div>",
+      }
+    ],
+    [
+      "@spacelephantlabs/vuepress-plugin-matomo",
+      {
+        siteId: 2,
+      }
+    ],
+    [
+      require("./my-plugin")
+    ],
+  ],
   head: [
     ["link", { rel: "icon", href: "/logo.png" }],
     [
@@ -55,7 +73,7 @@ module.exports = {
     repo: "unik-name/uns-delegates-website",
     repoLabel: "Contribute!",
     editLinks: true,
-    editLinkText: "Help us improve this page!",
+    editLinkText: "",
     docsDir: "docs",
     lastUpdated: true,
     activeHeaderLinks: true,
@@ -68,9 +86,6 @@ module.exports = {
       { text: "UNS Home", link: "https://uns.network" },
       { text: "UNS Explorer", link: "https://explorer.uns.network" },
     ],
-    sidebar: [
-      "/",
-    ],
   },
   markdown: {
     slugify: customSlugifyToHandleBadges,
@@ -78,4 +93,12 @@ module.exports = {
       slugify: customSlugifyToHandleBadges,
     },
   },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@delegates': '/docs/delegates/',
+        '@assets': '/docs/assets/'
+      }
+    }
+  }
 };

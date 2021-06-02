@@ -1,3 +1,6 @@
-# Main Page
+---
+title: home
+home: true
+---
 
-uns delegates website
+<DelegateData />
