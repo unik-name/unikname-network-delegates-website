@@ -1,5 +1,5 @@
 ---
-# Copy and paste this file to create your delegate profile
+# Copy and paste this file in your unikid folder here /docs/delegates/your_unikid/ and rename it README.md
 
 # REQUIRE
 # your unikid
