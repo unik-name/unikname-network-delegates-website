@@ -5,6 +5,9 @@ function customSlugifyToHandleBadges(str) {
   return vuePressSlugify(str.replace(/<Badge[^>]*\/>/, ""));
 }
 
+const DOMAIN = "delegates.uns.network";
+const HOSTNAME = `https://${DOMAIN}`;
+
 module.exports = {
   title: "uns.network delegates",
   description: "Explore the delegate's profile of the uns.network blockchain",
@@ -12,7 +15,7 @@ module.exports = {
     [
       "sitemap",
       {
-        hostname: "https://delegates.uns.network",
+        hostname: HOSTNAME,
       },
     ],
     [
@@ -42,6 +45,22 @@ module.exports = {
         siteId: 18,
       },
     ],
+    [
+      "seo",
+      {
+        // your options
+        author: (_, $site) => {
+          return {
+            name: $site.themeConfig.author,
+            twitter: "@Uns_Network",
+          };
+        },
+        image: ($page, $site) =>
+          $site.themeConfig.domain +
+          "/" +
+          ($page.frontmatter.image || "opengraph-v1.png"),
+      },
+    ],
     [require("./my-plugin")],
   ],
   head: [
@@ -62,6 +81,9 @@ module.exports = {
   themeConfig: {
     logo: "/logo.png",
     repo: "unik-name/uns-delegates-website",
+    hostname: HOSTNAME,
+    domain: HOSTNAME,
+    author: "UNS.network Team",
     repoLabel: "Contribute!",
     editLinks: true,
     editLinkText: "",
