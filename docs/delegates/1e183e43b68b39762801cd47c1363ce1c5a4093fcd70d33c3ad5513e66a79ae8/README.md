@@ -7,9 +7,9 @@ unikid: 1e183e43b68b39762801cd47c1363ce1c5a4093fcd70d33c3ad5513e66a79ae8
 
 # OPTIONNAL
 # social media profiles (twitter, github, forum.uns.network), add only your username 
-twitter: @muzaffer_taylan
+twitter: muzaffer_taylan
 github: mtaylan
-forum: @mtaylan
+forum: mtaylan
 
 # OPTIONNAL
 # email and website
