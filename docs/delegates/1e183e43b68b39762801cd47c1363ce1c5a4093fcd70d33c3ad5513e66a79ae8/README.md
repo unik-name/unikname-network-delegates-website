@@ -23,7 +23,7 @@ Hello.. My name is Muzaffer Taylan. I live in Izmir Turkey. I have a PhD in Biot
 I believe that Blockchains and Decentralized technologies will be much more important in our lives. That's why @unikname, a decentralized authorization system 
 developed to use decentralized technologies securely, impressed me a lot and I wanted to be a part of this network.
 I have prepared a website in order to be transparent to those who support me and to manage the whole process easily.
-I would be very happy if you would review my site and support me.
+I would be very happy if you would review my website and support me.
 
 ## Contributions
 <!-- detail your contributions -->
