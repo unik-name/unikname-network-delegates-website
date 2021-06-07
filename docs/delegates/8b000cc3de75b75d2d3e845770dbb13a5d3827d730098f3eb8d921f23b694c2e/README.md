@@ -17,7 +17,9 @@ I'm an active participant of the Duniter blockchain and user of the associated c
 
 In my professional life I design and develop mainly websites and hybrid mobile applications. I'd love to work on projects which use decentralized technologies in my professional work, but I didn't have the opportunity yet.
 
-I 've known the Unikname project first through the Blockchain & Société association and I'm a delegate since the beginning.
+In my personal life, I'm a supporter of the Nantes' hockey team, the Corsaires de Nantes, an amateur rock climber and a science lover.
+
+I've known the Unikname project first through the Blockchain & Société association and I'm a delegate since the beginning.
 
 As a delegate, I'm committed to maintain an up and running uns.network forging node (both livenet and sandbox networks)
 
