@@ -1,12 +1,10 @@
 ---
 unikid: 6e14dbfefb7e8c67e6f98319d3802707c06e398e2d63bf791cf6302dbd4b7ad1
-
 twitter: steve_dsp
 github: stevedespres
 forum: SteveDsp
 email: steve.despres@protonmail.com
 website: https://cryptoms.fr
-
 ---
 
 ## Summary 
