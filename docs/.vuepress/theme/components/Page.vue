@@ -27,7 +27,4 @@ export default {
 .page
   padding-bottom 2rem
   display block
-
-.pagefooter
-  padding 2rem 0rem 0rem 2rem
 </style>
