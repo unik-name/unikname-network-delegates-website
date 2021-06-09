@@ -26,15 +26,10 @@ As a delegate, I'm committed to maintain an up and running uns.network forging n
 If you want to support me, open `delegate support` feature from your app then select `@bpresles`.
 
 ## Contributions
-- **[since 2019]** Delegate on uns.network - https://delegates.uns.network/delegates/8b000cc3de75b75d2d3e845770dbb13a5d3827d730098f3eb8d921f23b694c2e/
-
-- **[since 2019]** Active member of the Blockchain & Société association - https://blockchainsociete.org/
-
-- **[since 2019]** Active member of the Ğ1 crypto-currency. Contributing developer of the Cesium wallet application - https://git.duniter.org/clients/cesium-grp/cesium
-
-- **[since 2021]** Co-founder of the FideliĞ1 project. Lead developer on this project
-
-    https://git.duniter.org/bpresles/fidelig1card
-
-    https://git.duniter.org/bpresles/fidelig1app
+- **[since 2019]** Delegate on uns.network - [https://delegates.uns.network/delegates/8b000cc3de75b75d2d3e845770dbb13a5d3827d730098f3eb8d921f23b694c2e/](https://delegates.uns.network/delegates/8b000cc3de75b75d2d3e845770dbb13a5d3827d730098f3eb8d921f23b694c2e/)
+- **[since 2019]** Active member of the Blockchain & Société association - [https://blockchainsociete.org/](https://blockchainsociete.org/)
+- **[since 2019]** Active member of the Ğ1 crypto-currency. Contributing developer of the Cesium wallet application -[https://git.duniter.org/clients/cesium-grp/cesium](https://git.duniter.org/clients/cesium-grp/cesium)
+- **[since 2021]** Co-founder of the FideliĞ1 project. Lead developer on this project 
+    - [https://git.duniter.org/bpresles/fidelig1card](https://git.duniter.org/bpresles/fidelig1card)
+    - [https://git.duniter.org/bpresles/fidelig1app](https://git.duniter.org/bpresles/fidelig1app)
 
