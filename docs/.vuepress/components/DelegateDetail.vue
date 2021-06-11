@@ -39,37 +39,51 @@
 
       <div class="socials">
         <a
+          class="nobr"
           target="_blank"
           :href="`https://explorer.uns.network/uniks/${delegate.unikid}`"
           ><i class="fa fa-globe" />explorer</a
         >
-        <p v-if="delegate.twitter">
-          <a target="_blank" :href="`https://twitter.com/${delegate.twitter}`"
-            ><i class="fa fa-twitter" />twitter</a
-          >
-        </p>
-        <p v-if="delegate.github">
-          <a target="_blank" :href="`https://github.com/${delegate.github}`"
-            ><i class="fa fa-github" />github</a
-          >
-        </p>
-        <p v-if="delegate.email">
-          <a target="_blank" :href="`mailto:${delegate.email}`"
-            ><i class="fa fa-envelope" />email</a
-          >
-        </p>
-        <p v-if="delegate.website">
-          <a target="_blank" :href="delegate.website"
-            ><i class="fa fa-globe" />website</a
-          >
-        </p>
-        <p v-if="delegate.forum">
-          <a
-            target="_blank"
-            :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"
-            ><i class="fa fa-globe" />forum</a
-          >
-        </p>
+
+        <a
+          v-if="delegate.twitter"
+          class="nobr"
+          target="_blank"
+          :href="`https://twitter.com/${delegate.twitter}`"
+          ><i class="fa fa-twitter" />twitter</a
+        >
+
+        <a
+          v-if="delegate.github"
+          class="nobr"
+          target="_blank"
+          :href="`https://github.com/${delegate.github}`"
+          ><i class="fa fa-github" />github</a
+        >
+
+        <a
+          v-if="delegate.email"
+          class="nobr"
+          target="_blank"
+          :href="`mailto:${delegate.email}`"
+          ><i class="fa fa-envelope" />email</a
+        >
+
+        <a
+          v-if="delegate.website"
+          class="nobr"
+          target="_blank"
+          :href="delegate.website"
+          ><i class="fa fa-globe" />website</a
+        >
+
+        <a
+          v-if="delegate.forum"
+          class="nobr"
+          target="_blank"
+          :href="`https://forum.unikname.com/u/${delegate.forum}/summary`"
+          ><i class="fa fa-globe" />forum</a
+        >
       </div>
     </div>
     <div v-if="!loading" class="details">
@@ -104,6 +118,11 @@
       <div class="fake-text medium" />
       <div class="fake-text medium" />
       <div class="fake-text" />
+    </div>
+    <div class="support">
+      <a href="https://my.unikname.app/" target="_blank"
+        >👉 Support this delegate on your My Unikname App</a
+      >
     </div>
     <script
       src="https://kit.fontawesome.com/ab9d8096cd.js"
@@ -162,11 +181,13 @@ export default {
         border-bottom: 0
     .socials
         padding-top: 10px
+        line-height: 1.5
         i
             padding-right: 6px
-        p
-            padding: 5px;
-            display: inline
+        a
+            padding: 6px;
+        .nobr
+            white-space: nowrap
 .details
     p
         margin: 1px
@@ -176,6 +197,11 @@ export default {
     .status-not.active
         margin-left: 5px
         color: red
+.support
+        margin-top: 15px
+        a
+            text-decoration: none
+            font-size: 1.1rem
 .unik-badge
   width: 110px
   padding: 0.25em 1em

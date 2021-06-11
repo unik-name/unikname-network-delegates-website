@@ -1,17 +1,13 @@
 ---
 # Copy and paste this file in your unikid folder here /docs/delegates/your_unikid/ and rename it README.md
 
-# REQUIRE
-# your unikid
-unikid: 00000000
-
-# OPTIONNAL
-# social media profiles (twitter, github, forum.uns.network), add only your username 
+# OPTIONAL BUT ENCOURAGED
+# social media profiles (twitter, github, forum.uns.network), add your username without @
 twitter: username
 github: username
 forum: username
 
-# OPTIONNAL
+# OPTIONAL
 # email and website
 email: toto@example.com
 website: https://example.com
