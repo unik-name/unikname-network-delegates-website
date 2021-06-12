@@ -1,4 +1,5 @@
 const { slugify: vuePressSlugify, path } = require("@vuepress/shared-utils");
+const axios = require("axios");
 
 function customSlugifyToHandleBadges(str) {
   // Remove badges
@@ -10,14 +11,8 @@ const HOSTNAME = `https://${DOMAIN}`;
 
 module.exports = {
   title: "uns.network delegates",
-  description: "Explore the delegate's profile of the uns.network blockchain",
+  description: "Explore the delegate's profiles of the uns.network blockchain",
   plugins: [
-    [
-      "sitemap",
-      {
-        hostname: HOSTNAME,
-      },
-    ],
     [
       "@vuepress/last-updated",
       {
@@ -45,15 +40,23 @@ module.exports = {
         siteId: 18,
       },
     ],
+    [require("./my-plugin")],
     [
       "seo",
       {
         // your options
-        author: (_, $site) => {
+        author: ($page, $site) => {
+          // delegate twitter account or by default @Uns_Network
+          const twitterHandle = $page.frontmatter.twitter
+            ? `@${$page.frontmatter.twitter}`
+            : "@Uns_Network";
           return {
             name: $site.themeConfig.author,
-            twitter: "@Uns_Network",
+            twitter: twitterHandle,
           };
+        },
+        description: ($page) => {
+          return "Explore the delegate's profile of the uns.network blockchain";
         },
         image: ($page, $site) =>
           $site.themeConfig.domain +
@@ -61,7 +64,12 @@ module.exports = {
           ($page.frontmatter.image || "opengraph-v1.png"),
       },
     ],
-    [require("./my-plugin")],
+    [
+      "sitemap",
+      {
+        hostname: HOSTNAME,
+      },
+    ],
   ],
   head: [
     ["link", { rel: "icon", href: "/logo.png" }],
