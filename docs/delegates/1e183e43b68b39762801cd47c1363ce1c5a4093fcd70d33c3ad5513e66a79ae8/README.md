@@ -26,7 +26,7 @@ developed to use decentralized technologies securely, impressed me a lot and I w
 
 
 I have prepared a website in order to be transparent to those who support me and to manage the whole process easily.
-I would be very happy if you would review [my website](http://mtaylan.inova.company) and support me. Initially, I will start to share 60% of my forged UNS with my supporters.
+I would be very happy if you would review [my website](http://mtaylan.inova.company) and support me. Initially, I will start to [share 60%](http://178.233.241.140:5000/) of my forged UNS with my supporters.
 
 ## Contributions
 <!-- detail your contributions -->
