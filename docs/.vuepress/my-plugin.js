@@ -4,6 +4,7 @@ module.exports = (options, context) => {
   const pages = [];
   let uniks = [];
   let delegates = [];
+  const unikidsClaimed = [];
 
   return {
     extendPageData($page) {
@@ -28,6 +29,10 @@ module.exports = (options, context) => {
     },
 
     async additionalPages() {
+      pages.forEach((page) =>
+        unikidsClaimed.push(page.regularPath.split("/")[2])
+      );
+
       delegates = await axios
         .get("https://api.uns.network/api/v2/delegates")
         .then((res) => res.data.data);
@@ -63,11 +68,10 @@ module.exports = (options, context) => {
       const { siteConfig } = context;
       if (!siteConfig.head) siteConfig.head = [];
       pages.forEach((page) => {
-        const unik = uniks.find(
-          (unik) => unik.id === page.regularPath.split("/")[2]
-        );
+        const unikid = page.regularPath.split("/")[2];
+        const unik = uniks.find((unik) => unik.id === unikid);
         const delegate = delegates.find(
-          (delegate) => delegate.username === page.regularPath.split("/")[2]
+          (delegate) => delegate.username === unikid
         );
 
         // Allow to generate pages for delegate without contribution
@@ -75,13 +79,12 @@ module.exports = (options, context) => {
           page.frontmatter = {};
         }
 
-        if (page.frontmatter.unikid) {
+        if (unikidsClaimed.includes(unikid)) {
           page.frontmatter.notCompleted = false;
         } else {
           page.frontmatter.notCompleted = true;
-          page.frontmatter.unikid = page.regularPath.split("/")[2];
         }
-
+        page.frontmatter.unikid = unikid;
         page.frontmatter.ownerId = unik.ownerId;
         page.frontmatter.unikname = unik.defaultExplicitValue;
         page.frontmatter.type = delegate.type;
