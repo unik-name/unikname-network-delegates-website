@@ -9,6 +9,6 @@ __uns.network delegates__ is an open source platform with no fees that allows de
 - Add a file named `README.md` inside it
 - Take example from the file [`./docs/delegates/_example.md`](https://github.com/unik-name/uns-delegates-website/blob/master/docs/delegates/_example.md) and personalize yours.
 - Add your picture/logo in your folder and name it `logo.png` (the picture must be 100kb maximum ⚠️)
-- Make a pull request with title: ```feat: New delegate profile: @{{your unikname}}```
+- Make a pull request with title: `feat: add @{{your unikname}} delegate profile`
 
 To submit a suggestion, report a bug, ask for help, you can also simply [open an issue on this repo](https://github.com/unik-name/uns-delegates-website/issues/new)
