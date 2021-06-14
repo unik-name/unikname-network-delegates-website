@@ -1,10 +1,6 @@
 ---
 # Copy and paste this file in your unikid folder here /docs/delegates/your_unikid/ and rename it README.md
 
-# REQUIRE
-# your unikid
-unikid: 1e183e43b68b39762801cd47c1363ce1c5a4093fcd70d33c3ad5513e66a79ae8
-
 # OPTIONNAL
 # social media profiles (twitter, github, forum.uns.network), add only your username 
 twitter: muzaffer_taylan

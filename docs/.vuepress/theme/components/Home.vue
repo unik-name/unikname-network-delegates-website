@@ -91,7 +91,7 @@ export default {
     h1, .description, .action
       margin 1.8rem auto
     .description
-      max-width 35rem
+      max-width 44rem
       font-size 1.6rem
       line-height 1.3
       color lighten($textColor, 40%)

@@ -122,16 +122,6 @@
 
 <script>
 export default {
-  created() {
-    const maybeData = this.$site.headTags.find(
-      (el) => el[0] === "delegateData"
-    );
-    if (maybeData && Array.isArray(maybeData) && maybeData.length > 0) {
-      this.$data.delegates = maybeData[1];
-    } else {
-      this.$data.delegates = [];
-    }
-  },
   async mounted() {
     const res = await fetch(
       "https://api.uns.network/api/v2/delegates"
@@ -169,7 +159,6 @@ export default {
   },
   data() {
     return {
-      delegates: [],
       loading: true,
     };
   },

@@ -1,19 +1,10 @@
 const axios = require("axios");
 
-module.exports = (options = {}, context) => {
+module.exports = (options, context) => {
   const pages = [];
-  const unikidsPagesCompleted = [];
   let uniks = [];
   let delegates = [];
-
-  // https://www.codegrepper.com/code-examples/javascript/split+string+without+cutting+words+typescript
-  const truncate = (str, max, suffix) =>
-    str.length < max
-      ? str
-      : `${str.substr(
-          0,
-          str.substr(0, max - suffix.length).lastIndexOf(" ")
-        )}${suffix}`;
+  const unikidsClaimed = [];
 
   return {
     extendPageData($page) {
@@ -38,10 +29,10 @@ module.exports = (options = {}, context) => {
     },
 
     async additionalPages() {
-      // copy the unikid of delegates who have completed their profiles
       pages.forEach((page) =>
-        unikidsPagesCompleted.push(page.regularPath.split("/")[2])
+        unikidsClaimed.push(page.regularPath.split("/")[2])
       );
+
       delegates = await axios
         .get("https://api.uns.network/api/v2/delegates")
         .then((res) => res.data.data);
@@ -77,10 +68,10 @@ module.exports = (options = {}, context) => {
       const { siteConfig } = context;
       if (!siteConfig.head) siteConfig.head = [];
       pages.forEach((page) => {
-        const currentUnikid = page.regularPath.split("/")[2];
-        const unik = uniks.find((unik) => unik.id === currentUnikid);
+        const unikid = page.regularPath.split("/")[2];
+        const unik = uniks.find((unik) => unik.id === unikid);
         const delegate = delegates.find(
-          (delegate) => delegate.username === currentUnikid
+          (delegate) => delegate.username === unikid
         );
 
         // Allow to generate pages for delegate without contribution
@@ -88,47 +79,16 @@ module.exports = (options = {}, context) => {
           page.frontmatter = {};
         }
 
-        if (unikidsPagesCompleted.includes(currentUnikid)) {
+        if (unikidsClaimed.includes(unikid)) {
           page.frontmatter.notCompleted = false;
-          page.frontmatter.unikid = currentUnikid;
         } else {
           page.frontmatter.notCompleted = true;
-          page.frontmatter.unikid = currentUnikid;
         }
+        page.frontmatter.unikid = unikid;
         page.frontmatter.ownerId = unik.ownerId;
-        page.title = `@${unik.defaultExplicitValue}'s delegate profile`;
         page.frontmatter.unikname = unik.defaultExplicitValue;
         page.frontmatter.type = delegate.type;
         page.frontmatter.forger = delegate.rank < 24 ? true : false;
-
-        // add custom description
-        let description = page._strippedContent;
-        description = description.replace(/^.*#.*$/gm, "");
-        description = description.replace(/(\r\n|\n|\r)/gm, "");
-        description = description.replace(/<!--.*?-->/g, "");
-
-        if (description.length > 0) {
-          description = truncate(description, 120, "...");
-        } else {
-          description = `See the profile of @${unik.defaultExplicitValue}, a delegate of the uns.network blockchain`;
-        }
-        page.frontmatter.description = description;
-
-        // update SEO meta
-        page.frontmatter.meta.forEach((meta) => {
-          if (meta.property === "og:title") {
-            meta.content = page.title;
-          } else if (meta.name === "twitter:title") {
-            meta.content = page.title;
-          } else if (meta.name === "twitter:data1") {
-            meta.content = page.frontmatter.unikname;
-          } else if (
-            meta.name === "twitter:description" ||
-            meta.property === "og:description"
-          ) {
-            meta.content = description;
-          }
-        });
 
         if (page.regularPath.includes("embedded")) {
           page.frontmatter.layout = "DelegateLayout";
@@ -152,20 +112,35 @@ module.exports = (options = {}, context) => {
         (page) => !page.regularPath.includes("embedded")
       );
 
-      let finalData = delegatesPages.map((page) => page.frontmatter);
+      delegates = delegatesPages.map((page) => page.frontmatter);
 
       // keep only delegates of type individual
-      finalData = finalData.filter(
+      delegates = delegates.filter(
         (delegate) => delegate.type === "individual"
       );
       // sort by forger status and alphabetically
-      finalData = finalData.sort(
+      delegates = delegates.sort(
         (a, b) => b.forger - a.forger || a.unikname.localeCompare(b.unikname)
       );
       // sort if delegate completed his profile
-      finalData = finalData.sort((a, b) => a.notCompleted - b.notCompleted);
+      delegates = delegates.sort((a, b) => a.notCompleted - b.notCompleted);
+    },
 
-      siteConfig.head.push(["delegateData", finalData]);
+    async enhanceAppFiles() {
+      return {
+        name: "my-plugin",
+        content: `
+        export default ({ Vue }) => {
+          Vue.mixin({
+            data() {
+              return {
+                delegates: ${JSON.stringify(delegates)}
+              };
+            }
+          });
+        }
+        `,
+      };
     },
   };
 };
