@@ -1,5 +1,4 @@
 ---
-unikid: 110688c7e2b4ce9f369aade0e5e6d8076a5beb28066d473bcaa4f0ddb124803c
 twitter: GuiillaumeN
 github: Nigui
 forum: guillaume
