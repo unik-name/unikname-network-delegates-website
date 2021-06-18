@@ -1,5 +1,4 @@
 const { slugify: vuePressSlugify, path } = require("@vuepress/shared-utils");
-const axios = require("axios");
 
 function customSlugifyToHandleBadges(str) {
   // Remove badges
