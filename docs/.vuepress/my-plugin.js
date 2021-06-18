@@ -1,4 +1,6 @@
 const axios = require("axios");
+const sharp = require("sharp");
+const fs = require("fs");
 
 // https://www.codegrepper.com/code-examples/javascript/split+string+without+cutting+words+typescript
 const truncate = (str, max, suffix) =>
@@ -163,6 +165,21 @@ module.exports = (options, context) => {
       );
       // sort if delegate completed his profile
       delegates = delegates.sort((a, b) => a.notCompleted - b.notCompleted);
+
+      // create thumbnails for delegates logo
+      const outputDir = "./docs/assets/generated";
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+      }
+      unikidsClaimed.forEach(async (unikid) => {
+        const logoPath = `./docs/delegates/${unikid}/logo.png`;
+        const thumbnailPath = `${outputDir}/${unikid}.png`;
+        generateThumbnail(logoPath, thumbnailPath, 100, 100);
+      });
+      // default logo
+      const logoPath = `./docs/delegates/default-logo.png`;
+      const thumbnailPath = `${outputDir}/default-logo.png`;
+      generateThumbnail(logoPath, thumbnailPath, 100, 100);
     },
 
     async enhanceAppFiles() {
@@ -182,4 +199,22 @@ module.exports = (options, context) => {
       };
     },
   };
+};
+
+const generateThumbnail = (logoPath, thumbnailPath, width, heigth) => {
+  if (fs.existsSync(thumbnailPath)) {
+    const logoBirthtime = fs.statSync(logoPath).birthtime;
+    const thumbnailBirthTime = fs.statSync(thumbnailPath).birthtime;
+    if (logoBirthtime > thumbnailBirthTime) {
+      sharp(logoPath)
+        .resize(width, heigth)
+        .toFile(thumbnailPath),
+        (err) => console.log(err);
+    }
+  } else {
+    sharp(logoPath)
+      .resize(width, heigth)
+      .toFile(thumbnailPath),
+      (err) => console.log(err);
+  }
 };

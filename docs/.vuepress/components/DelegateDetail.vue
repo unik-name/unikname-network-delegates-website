@@ -13,14 +13,16 @@
         <img
           class="delegateLogo"
           alt="logo"
-          :src="require(`@assets/default-logo.png`)"
+          loading="lazy"
+          :src="require(`@assets/generated/default-logo.png`)"
         />
       </div>
       <div v-else>
         <img
           class="delegateLogo"
           alt="logo"
-          :src="require(`@delegates/${delegate.unikid}/logo.png`)"
+          loading="lazy"
+          :src="require(`@assets/generated/${delegate.unikid}.png`)"
         />
       </div>
 
