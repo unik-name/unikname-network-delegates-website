@@ -6,11 +6,13 @@
           <div class="card-header">
             <img
               v-if="delegate.notCompleted"
-              :src="require(`@assets/default-logo.png`)"
+              loading="lazy"
+              :src="require(`@assets/generated/default-logo.png`)"
             />
             <img
               v-else
-              :src="require(`@delegates/${delegate.unikid}/logo.png`)"
+              loading="lazy"
+              :src="require(`@assets/generated/${delegate.unikid}.png`)"
             />
           </div>
           <div class="text-content">

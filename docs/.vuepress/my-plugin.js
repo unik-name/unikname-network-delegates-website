@@ -1,4 +1,15 @@
 const axios = require("axios");
+const sharp = require("sharp");
+const fs = require("fs");
+
+// https://www.codegrepper.com/code-examples/javascript/split+string+without+cutting+words+typescript
+const truncate = (str, max, suffix) =>
+  str.length < max
+    ? str
+    : `${str.substr(
+        0,
+        str.substr(0, max - suffix.length).lastIndexOf(" ")
+      )}${suffix}`;
 
 module.exports = (options, context) => {
   const pages = [];
@@ -85,10 +96,40 @@ module.exports = (options, context) => {
           page.frontmatter.notCompleted = true;
         }
         page.frontmatter.unikid = unikid;
+        page.title = `@${unik.defaultExplicitValue}'s delegate profile`;
         page.frontmatter.ownerId = unik.ownerId;
         page.frontmatter.unikname = unik.defaultExplicitValue;
         page.frontmatter.type = delegate.type;
         page.frontmatter.forger = delegate.rank < 24 ? true : false;
+
+        // add custom description
+        let description = page._strippedContent;
+        description = description.replace(/^.*#.*$/gm, "");
+        description = description.replace(/(\r\n|\n|\r)/gm, "");
+        description = description.replace(/<!--.*?-->/g, "");
+
+        if (description.length > 0) {
+          description = truncate(description, 120, "...");
+        } else {
+          description = `See the profile of @${unik.defaultExplicitValue}, a delegate of the uns.network blockchain`;
+        }
+        page.frontmatter.description = description;
+
+        // update SEO meta
+        page.frontmatter.meta.forEach((meta) => {
+          if (meta.property === "og:title") {
+            meta.content = page.title;
+          } else if (meta.name === "twitter:title") {
+            meta.content = page.title;
+          } else if (meta.name === "twitter:data1") {
+            meta.content = page.frontmatter.unikname;
+          } else if (
+            meta.name === "twitter:description" ||
+            meta.property === "og:description"
+          ) {
+            meta.content = description;
+          }
+        });
 
         if (page.regularPath.includes("embedded")) {
           page.frontmatter.layout = "DelegateLayout";
@@ -124,6 +165,21 @@ module.exports = (options, context) => {
       );
       // sort if delegate completed his profile
       delegates = delegates.sort((a, b) => a.notCompleted - b.notCompleted);
+
+      // create thumbnails for delegates logo
+      const outputDir = "./docs/assets/generated";
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+      }
+      unikidsClaimed.forEach(async (unikid) => {
+        const logoPath = `./docs/delegates/${unikid}/logo.png`;
+        const thumbnailPath = `${outputDir}/${unikid}.png`;
+        generateThumbnail(logoPath, thumbnailPath, 100, 100);
+      });
+      // default logo
+      const logoPath = `./docs/delegates/default-logo.png`;
+      const thumbnailPath = `${outputDir}/default-logo.png`;
+      generateThumbnail(logoPath, thumbnailPath, 100, 100);
     },
 
     async enhanceAppFiles() {
@@ -143,4 +199,22 @@ module.exports = (options, context) => {
       };
     },
   };
+};
+
+const generateThumbnail = (logoPath, thumbnailPath, width, heigth) => {
+  if (fs.existsSync(thumbnailPath)) {
+    const logoBirthtime = fs.statSync(logoPath).birthtime;
+    const thumbnailBirthTime = fs.statSync(thumbnailPath).birthtime;
+    if (logoBirthtime > thumbnailBirthTime) {
+      sharp(logoPath)
+        .resize(width, heigth)
+        .toFile(thumbnailPath),
+        (err) => console.log(err);
+    }
+  } else {
+    sharp(logoPath)
+      .resize(width, heigth)
+      .toFile(thumbnailPath),
+      (err) => console.log(err);
+  }
 };
