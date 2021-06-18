@@ -12,6 +12,14 @@ forum: username
 email: toto@example.com
 website: https://example.com
 
+# OPTIONAL
+# Display informations about your nodes: uptime, version ...
+#node_ip_addresses:
+#  livenet:
+#    - 193.xx.yy.zz
+#  sandbox:
+#    - 193.xx.yy.zz
+
 ---
 
 ## Summary
