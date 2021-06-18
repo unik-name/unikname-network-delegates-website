@@ -1,6 +1,6 @@
 const axios = require("axios");
 const sharp = require("sharp");
-var fs = require("fs");
+const fs = require("fs");
 
 module.exports = (options, context) => {
   const pages = [];
@@ -136,28 +136,11 @@ module.exports = (options, context) => {
         const logoPath = `./docs/delegates/${unikid}/logo.png`;
         const thumbnailPath = `${outputDir}/${unikid}.png`;
         generateThumbnail(logoPath, thumbnailPath, 100, 100);
-        if (fs.existsSync(thumbnailPath)) {
-          const logoBirthtime = fs.statSync(logoPath).birthtime;
-          const thumbnailBirthTime = fs.statSync(thumbnailPath).birthtime;
-          if (logoBirthtime > thumbnailBirthTime) {
-            generateThumbnail(logoPath, thumbnailPath, 100, 100);
-          }
-        } else {
-          generateThumbnail(logoPath, thumbnailPath, 100, 100);
-        }
       });
       // default logo
-      const defaultLogoPath = `./docs/delegates/default-logo.png`;
+      const logoPath = `./docs/delegates/default-logo.png`;
       const thumbnailPath = `${outputDir}/default-logo.png`;
-      if (fs.existsSync(thumbnailPath)) {
-        const defaultLogoBirthtime = fs.statSync(defaultLogoPath).birthtime;
-        const thumbnailBirthTime = fs.statSync(thumbnailPath).birthtime;
-        if (defaultLogoBirthtime > thumbnailBirthTime) {
-          generateThumbnail(defaultLogoPath, thumbnailPath, 100, 100);
-        }
-      } else {
-        generateThumbnail(defaultLogoPath, thumbnailPath, 100, 100);
-      }
+      generateThumbnail(logoPath, thumbnailPath, 100, 100);
     },
 
     async enhanceAppFiles() {
