@@ -893,9 +893,10 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@spacelephantlabs/vuepress-plugin-matomo@spacelephantlabs/vuepress-plugin-matomo":
-  version "1.0.0"
-  resolved "https://codeload.github.com/spacelephantlabs/vuepress-plugin-matomo/tar.gz/dea65b1aa815ac6ea48e5366b25bcc2edbfaaa4d"
+"@spacelephantlabs/vuepress-plugin-matomo-spacelephant@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@spacelephantlabs/vuepress-plugin-matomo-spacelephant/-/vuepress-plugin-matomo-spacelephant-1.1.1.tgz#3e91405e856e6fecde9c684b148289bf47fca4a7"
+  integrity sha512-Qa2IXtFnMZeQfYqI2doXjr+0Z1qZPoNol4bt6SRllbVnn7hnKqI4B/zo0z3JNa7Wad/ibQe4nyR5A4XRdUxC/w==
 
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"

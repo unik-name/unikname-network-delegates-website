@@ -14,7 +14,7 @@
     "check-links": "yarn build && hyperlink -r -p -i docs/.vuepress/dist/index.html | tap-spot"
   },
   "devDependencies": {
-    "@spacelephantlabs/vuepress-plugin-matomo": "spacelephantlabs/vuepress-plugin-matomo",
+    "@spacelephantlabs/vuepress-plugin-matomo-spacelephant": "^1.1.1",
     "@vuepress/shared-utils": "^1.8.2",
     "axios": "^0.21.1",
     "fs": "^0.0.1-security",
@@ -23,5 +23,8 @@
     "vuepress": "^1.8.2",
     "vuepress-plugin-seo": "^0.1.4",
     "vuepress-plugin-sitemap": "^2.3.1"
+  },
+  "engines": {
+    "node": ">= 14"
   }
 }
