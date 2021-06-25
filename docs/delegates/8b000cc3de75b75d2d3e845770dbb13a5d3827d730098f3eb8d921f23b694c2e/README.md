@@ -18,7 +18,7 @@ In my personal life, I'm a supporter of the Nantes' hockey team, the Corsaires d
 
 I've known the Unikname project first through the Blockchain & Société association and I'm a delegate since the beginning.
 
-As a delegate, I'm committed to maintain an up and running uns.network forging node.
+As a delegate, I'm committed to maintain an up and running unikname.network forging node.
 
 If you want to support me, open `delegate support` feature from your app then select `@bpresles`.
 
