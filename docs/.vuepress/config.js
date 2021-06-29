@@ -45,10 +45,10 @@ module.exports = {
       {
         // your options
         author: ($page, $site) => {
-          // delegate twitter account or by default @Uns_Network
+          // delegate twitter account or by default @UniknameNetwork
           const twitterHandle = $page.frontmatter.twitter
             ? `@${$page.frontmatter.twitter}`
-            : "@Uns_Network";
+            : "@UniknameNetwork";
           return {
             name: $site.themeConfig.author,
             twitter: twitterHandle,
