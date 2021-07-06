@@ -23,8 +23,6 @@ module.exports = {
       },
     ],
     ["@vuepress/back-to-top", {}],
-    ["tabs", {}],
-    ["@goy/svg-icons", {}],
     [
       "vuepress-plugin-container",
       {
@@ -35,7 +33,7 @@ module.exports = {
       },
     ],
     [
-      "@spacelephantlabs/vuepress-plugin-matomo",
+      "@spacelephantlabs/vuepress-plugin-matomo-spacelephant",
       {
         siteId: 18,
       },
