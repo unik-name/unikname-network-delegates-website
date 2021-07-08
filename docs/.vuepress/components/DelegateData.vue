@@ -139,7 +139,7 @@ export default {
           (Date.now() - data.blocks.last.timestamp.unix * 1000) / 1000 >
           60 * 10
         ) {
-          delegate.cardbg = "#effcf0";
+          delegate.cardbg = "#ffe8e2";
           const seconds =
             (Date.now() - data.blocks.last.timestamp.unix * 1000) / 1000;
           if (seconds / 3600 / 24 > 1) {
