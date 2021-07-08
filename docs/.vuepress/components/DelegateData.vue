@@ -139,7 +139,7 @@ export default {
           (Date.now() - data.blocks.last.timestamp.unix * 1000) / 1000 >
           60 * 10
         ) {
-          delegate.cardbg = "#ff8c72";
+          delegate.cardbg = "#effcf0";
           const seconds =
             (Date.now() - data.blocks.last.timestamp.unix * 1000) / 1000;
           if (seconds / 3600 / 24 > 1) {
@@ -153,7 +153,7 @@ export default {
           delegate.notActive = false;
         }
       } else {
-        delegate.cardbg = "#b5cbef";
+        delegate.cardbg = "#f9f9f9";
         delegate.notActive = false;
       }
     });
@@ -195,7 +195,7 @@ export default {
     overflow hidden
     text-align center
     margin 0px 10px 10px 0px
-    background-color #EFF6F6
+    background-color #effcf0
   .card-header
         img
             padding-top: 10px

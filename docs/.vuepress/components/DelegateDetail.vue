@@ -43,7 +43,7 @@
         <a
           class="nobr"
           target="_blank"
-          :href="`https://explorer.uns.network/uniks/${delegate.unikid}`"
+          :href="`https://explorer.unikname.network/uniks/${delegate.unikid}`"
           ><i class="fa fa-globe" />explorer</a
         >
 

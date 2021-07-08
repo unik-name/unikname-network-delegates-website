@@ -3,6 +3,6 @@ home: true
 title: Livenet Delegate Directory
 ---
 
-[What is a delegate of uns.network](https://docs.uns.network/key-concept/network-governance.html)?
+[What is a delegate of unikname.network](https://docs.unikname.network/key-concept/network-governance.html)?
 
 <DelegateData />

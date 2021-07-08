@@ -111,7 +111,7 @@ module.exports = (options, context) => {
         if (description.length > 0) {
           description = truncate(description, 120, "...");
         } else {
-          description = `See the profile of @${unik.defaultExplicitValue}, a delegate of the uns.network blockchain`;
+          description = `See the profile of @${unik.defaultExplicitValue}, a delegate of the unikname.network blockchain`;
         }
         page.frontmatter.description = description;
 
