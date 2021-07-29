@@ -22,3 +22,5 @@ I would be very happy if you would review [my website](http://mtaylan.inova.comp
 
 - **[March 21 / 2021 ]** UNS_NODE Monitoring via Telegram
   - [https://forum.unikname.com/t/uns-node-monitoring-via-telegram/977](https://forum.unikname.com/t/uns-node-monitoring-via-telegram/977)
+- **[July 28 / 2021 ]** UNS_NODE Monitoring via Discord
+  - [https://forum.unikname.com/t/uns-node-monitoring-via-discord/1139](https://forum.unikname.com/t/uns-node-monitoring-via-discord/1139)
