@@ -14,7 +14,15 @@ developed to use decentralized technologies securely, impressed me a lot and I w
 
 I have prepared a website in order to be transparent to those who support me and to manage the whole process easily.
 
-I would be very happy if you would review [my website](http://mtaylan.inova.company) and support me. Initially, I will start to [share 60%](http://mtaylan.inova.company:5000/) of my forged UNIK with my supporters.
+I have started to [share 60%](http://pool-mtaylan.inova.company:5000/) of my forged UNIK with my supporters.
+- Sharing **60% of rewards every 24 hours**
+- Using True Block Weight (TBW) adapted to UNIKNAME.network for automated sharing of forging rewards.
+- NO Minimum UNIK required for earning rewards
+- NO Maximum cap
+- NO Minimum payout
+- My supporters could easly [track their rewards and payments.](http://pool-mtaylan.inova.company:5000/)
+
+I would be very happy if you would review [my website](http://mtaylan.inova.company) and support me.
 
 ## Contributions
 
