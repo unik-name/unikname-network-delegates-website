@@ -15,11 +15,20 @@ email: latruite42@protonmail.com
 <!-- introduce yourself in a few lines -->
 
 Blockchain addict
+
 Crypto space traveller
-Degen trader
+
+Degen trader & farmer
+
 BrrRRrrRrr 🤑
 
-I am also running nodes on Incognito chain and Horizen !
+**I'm sharing 60% of my delegate block rewards!**
+
+Vote for me using the MyUniknameApp and earn some $UNIKS.
+- Automated daily payouts.
+- Voters weight and payouts monitoring: [here](http://peterpeter.bzh:5000/)
+
+I am also running nodes on Unikname Sandbox, Incognito chain and Horizen network.
 
 ## Contributions
 
