@@ -125,6 +125,7 @@
       <a href="https://my.unikname.app/" target="_blank"
         >👉 Support this delegate on your My Unikname App</a
       >
+      <p v-if="delegate.rewardsSharing">This delegate shares his rewards with his supporters 🤑</p>
     </div>
     <script
       src="https://kit.fontawesome.com/ab9d8096cd.js"
@@ -204,6 +205,9 @@ export default {
         a
             text-decoration: none
             font-size: 1.1rem
+        p
+            margin-top: 0
+            font-weight : bold
 .unik-badge
   width: 110px
   padding: 0.25em 1em

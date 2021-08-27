@@ -7,6 +7,9 @@ twitter: username
 github: username
 forum: username
 
+# if you share part of the tokens to your supporters 
+rewardsSharing: true | false
+
 # OPTIONAL
 # email and website
 email: toto@example.com
