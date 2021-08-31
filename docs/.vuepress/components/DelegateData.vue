@@ -133,6 +133,7 @@ export default {
       const data = res.data.find((el) => el.username === delegate.unikid);
       delegate.rank = data.rank;
       delegate.votes = data.production.approval;
+      delegate.forger = delegate.rank < 24 ? true : false;
       if (delegate.forger) {
         // has not forged for more than 10 minutes
         if (
