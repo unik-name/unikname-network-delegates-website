@@ -49,6 +49,7 @@ module.exports = (options, context) => {
         .then((res) => res.data.data);
       const unikids = delegates
         .filter((delegate) => !delegate.username.includes("genesis"))
+        .filter((delegate) => !delegate.isResigned)
         .map((delegate) => delegate.username);
       uniks = await axios
         .post("https://api.uns.network/api/v2/uniks/search", { id: unikids })
@@ -78,6 +79,7 @@ module.exports = (options, context) => {
     async ready() {
       const { siteConfig } = context;
       if (!siteConfig.head) siteConfig.head = [];
+
       pages.forEach((page) => {
         const unikid = page.regularPath.split("/")[2];
         const unik = uniks.find((unik) => unik.id === unikid);
