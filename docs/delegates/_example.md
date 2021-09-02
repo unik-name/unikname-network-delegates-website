@@ -7,6 +7,10 @@ twitter: username
 github: username
 forum: username
 
+# if you share part of the tokens to your supporters 
+# we recommend this tool used by many delegates and if you need help come and ask questions on discord https://github.com/galperins4/core2_tbw
+rewardsSharing: false
+
 # OPTIONAL
 # email and website
 email: toto@example.com

@@ -4,6 +4,7 @@ github: cactus-15-49
 forum: cactus1549
 email: cactus1549pool@gmail.com
 website: https://marketsquare.io/projects/delegate-cactus1549
+rewardsSharing: false
 ---
 
 ## Summary

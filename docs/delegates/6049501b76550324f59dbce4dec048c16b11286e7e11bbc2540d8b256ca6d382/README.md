@@ -10,6 +10,7 @@ github: peterjah
 # OPTIONNAL
 # email and website
 email: latruite42@protonmail.com
+rewardsSharing: true
 ---## Summary
 
 <!-- introduce yourself in a few lines -->

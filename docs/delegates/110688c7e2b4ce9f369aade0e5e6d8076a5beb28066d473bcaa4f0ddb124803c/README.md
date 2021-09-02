@@ -4,6 +4,7 @@ github: Nigui
 forum: guillaume
 # email: toto@example.com
 # website: https://example.com
+rewardsSharing: true
 ---
 
 ## Summary

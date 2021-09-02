@@ -4,6 +4,7 @@ github: mtaylan
 forum: mtaylan
 email: mtaylan@gmail.com
 website: http://mtaylan.inova.company
+rewardsSharing: true
 ---
 ## Summary
 

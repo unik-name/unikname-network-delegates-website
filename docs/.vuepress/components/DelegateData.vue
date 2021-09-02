@@ -17,7 +17,19 @@
           </div>
           <div class="text-content">
             <div class="unikid">
-              <h3>@{{ delegate.unikname }}</h3>
+              <h3>
+                @{{ delegate.unikname }}
+                <span
+                  class="rewardsSharingDesktop"
+                  v-if="delegate.rewardsSharing"
+                  >💸
+                  <span class="hovercard">
+                    <div class="tooltiptext">
+                      ➡️ This delegate shares his rewards with his supporters 🤑
+                    </div>
+                  </span></span
+                >
+              </h3>
               <span
                 v-if="delegate.type"
                 :class="`unik-badge unik-badge-${delegate.type}`"
@@ -95,6 +107,9 @@
                   alt="status"
                 />
               </span>
+              <p class="rewardsSharingMobile" v-if="delegate.rewardsSharing">
+                ➡️ This delegate shares his rewards with his supporters 🤑
+              </p>
             </div>
 
             <div v-if="!loading && delegate.notActive" class="description">
@@ -178,7 +193,7 @@ export default {
     flex-direction row
     justify-content center
 .card
-    height 17.5em
+    height 19em
     width 17em
     min-width 17em
     display -webkit-box
@@ -291,4 +306,42 @@ export default {
             transform: translateX(-100%)
         100%
             transform: translateX(100%)
+.rewardsSharingDesktop
+    padding-left: 10px
+    font-size 1.3rem
+.rewardsSharingDesktop:hover .hovercard
+    opacity: 1
+    transition: 0.5s
+    transition-delay: 0.1s
+.hovercard
+    position: absolute
+    opacity: 0
+    z-index: 1
+    left: 50%
+    top: -5px;
+    transform: translateX(-50%)
+.tooltiptext
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    background-color: #effcf0
+    padding: 18px
+    border-radius: 5px
+    color: black
+    transition: 1s
+    width: 200px
+    font-size: 1.1rem
+
+.rewardsSharingMobile
+    padding-top: 5px
+    display: none
+
+@media (any-pointer: coarse)
+    .rewardsSharingDesktop
+        display:none
+    .rewardsSharingMobile
+        display: block
+    .card
+        height: 22em
+    
 </style>
