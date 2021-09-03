@@ -4,6 +4,7 @@ github: arktoshidotcom
 forum: arktoshi
 email: iamarktoshi@gmail.com
 website: https://arkviet.com
+rewardsSharing: true
 ---
 ## Summary
 
