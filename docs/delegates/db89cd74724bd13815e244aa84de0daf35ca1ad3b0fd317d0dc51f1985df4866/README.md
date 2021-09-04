@@ -24,6 +24,8 @@ arktoshi will share a portion of it’s rewards with it’s voters every 24 hour
 
 I am hoping I can count on your support! Thank you for taking the time to read this proposal.
 
+Update: Delegate arktoshi was just voted into the top 23 delegates (Individual)! I would like to thank all my voters for the trust that you give me! Especially I would like to thank mtaylan, who shared a lot of knowledge about Unikname and supported me out.
+
 ## Contributions
 
 <!-- detail your contributions -->
