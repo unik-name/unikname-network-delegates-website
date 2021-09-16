@@ -28,10 +28,9 @@ I would be very happy if you would review [my website](http://www.mtaylan.com) a
 ## Contributions
 
 <!-- detail your contributions -->
-
-- **[March 21 / 2021 ]** UNS_NODE Monitoring via Telegram
-  - [https://forum.unikname.com/t/uns-node-monitoring-via-telegram/977](https://forum.unikname.com/t/uns-node-monitoring-via-telegram/977)
-- **[July 28 / 2021 ]** UNS_NODE Monitoring via Discord
-  - [https://forum.unikname.com/t/uns-node-monitoring-via-discord/1139](https://forum.unikname.com/t/uns-node-monitoring-via-discord/1139)
 - **[September 12 / 2021 ]** Airdrop-1
   - [AirDrop-1](https://twitter.com/muzaffer_taylan/status/1437051296327077894)
+- **[July 28 / 2021 ]** UNS_NODE Monitoring via Discord
+  - [https://forum.unikname.com/t/uns-node-monitoring-via-discord/1139](https://forum.unikname.com/t/uns-node-monitoring-via-discord/1139)
+- **[March 21 / 2021 ]** UNS_NODE Monitoring via Telegram
+  - [https://forum.unikname.com/t/uns-node-monitoring-via-telegram/977](https://forum.unikname.com/t/uns-node-monitoring-via-telegram/977)
