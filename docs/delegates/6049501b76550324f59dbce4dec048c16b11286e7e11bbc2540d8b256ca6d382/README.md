@@ -27,7 +27,7 @@ BrrRRrrRrr 🤑
 
 Vote for me using the MyUniknameApp and earn some $UNIKS.
 - Automated daily payouts.
-- Voters weight and payouts monitoring: [here](http://peterpeter.bzh:5000/)
+- Voters weight and payouts monitoring: [here](http://unikname.peterpeter.bzh/)
 
 I am also running nodes on Unikname Sandbox, Incognito chain and Horizen network.
 
