@@ -25,15 +25,22 @@ I have started to [share 60%](http://pool.mtaylan.com:5000/) of my forged UNIK w
 
 I would be very happy if you would review [my website](http://www.mtaylan.com) and support me.
 
+Follow me on [twitter](https://twitter.com/muzaffer_taylan) for upcoming airdrops.
+
+
 ## Contributions
 
 <!-- detail your contributions -->
+- **[September 27 / 2021 ]** Airdrop to my 300th Voter
+  - [AirDrop-Voter-300](https://twitter.com/muzaffer_taylan/status/1441794073979928576)
 - **[September 23 / 2021 ]** Airdrop to 1000th member of Unikname.network Telegram group
   - [AirDrop-Telegram-1000](https://t.me/Unikname_network/1674)
 - **[September 18 / 2021 ]** Airdrop to 500th member of Unikname.network Discord group
   - [AirDrop-Discord-500](https://discord.com/channels/798861428709654548/798861428709654554/888791824704102441)
 - **[September 18 / 2021 ]** Airdrop to 500th member of Unikname.network Telegram group
   - [AirDrop-Telegram-500](https://t.me/Unikname_network/963)
+- **[September 14 / 2021 ]** Airdrop to my 100th Voter
+  - [AirDrop-Voter-100](https://twitter.com/muzaffer_taylan/status/1437694343838584835)
 - **[September 12 / 2021 ]** Airdrop-1
   - [AirDrop-1](https://twitter.com/muzaffer_taylan/status/1437051296327077894)
 - **[July 28 / 2021 ]** UNS_NODE Monitoring via Discord
