@@ -7,12 +7,12 @@ const truncate = (str, max, suffix) =>
   str.length < max
     ? str
     : `${str.substr(
-        0,
-        str.substr(0, max - suffix.length).lastIndexOf(" ")
-      )}${suffix}`;
+      0,
+      str.substr(0, max - suffix.length).lastIndexOf(" ")
+    )}${suffix}`;
 
 module.exports = (options, context) => {
-  const pages = [];
+  let pages = [];
   let uniks = [];
   let delegates = [];
   const unikidsClaimed = [];
@@ -54,6 +54,14 @@ module.exports = (options, context) => {
       uniks = await axios
         .post("https://api.uns.network/api/v2/uniks/search", { id: unikids })
         .then((res) => res.data.data);
+
+      //delete the resigned delegate pages
+      const delegatesResigned = delegates
+        .filter((delegate) => !delegate.username.includes("genesis"))
+        .filter((delegate) => delegate.isResigned)
+        .map(delegate => delegate.username)
+      pages = pages.filter(page => !delegatesResigned.includes(page.regularPath.split("/")[2]))
+
 
       const additionalPages = pages.map((page) => {
         return {
@@ -146,10 +154,10 @@ module.exports = (options, context) => {
       );
       pagesWithoutFrontmatter.forEach(
         (page) =>
-          (page.frontmatter = {
-            unikid: page.regularPath.split("/")[2],
-            notCompleted: true,
-          })
+        (page.frontmatter = {
+          unikid: page.regularPath.split("/")[2],
+          notCompleted: true,
+        })
       );
       const delegatesPages = pages.filter(
         (page) => !page.regularPath.includes("embedded")
