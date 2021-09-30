@@ -12,8 +12,8 @@ const truncate = (str, max, suffix) =>
     )}${suffix}`;
 
 module.exports = (options, context) => {
-  let pages = [];
-  let uniks = [];
+  const pages = [];
+  let delegatesResigned = [];
   let delegates = [];
   const unikidsClaimed = [];
 
@@ -47,21 +47,19 @@ module.exports = (options, context) => {
       delegates = await axios
         .get("https://api.uns.network/api/v2/delegates")
         .then((res) => res.data.data);
-      const unikids = delegates
+      const delegatesRegister = delegates
         .filter((delegate) => !delegate.username.includes("genesis"))
         .filter((delegate) => !delegate.isResigned)
         .map((delegate) => delegate.username);
       uniks = await axios
-        .post("https://api.uns.network/api/v2/uniks/search", { id: unikids })
+        .post("https://api.uns.network/api/v2/uniks/search", { id: delegatesRegister })
         .then((res) => res.data.data);
 
-      //delete the resigned delegate pages
-      const delegatesResigned = delegates
+      // store the resigned delegate pages to hide them
+      delegatesResigned = delegates
         .filter((delegate) => !delegate.username.includes("genesis"))
         .filter((delegate) => delegate.isResigned)
         .map(delegate => delegate.username)
-      pages = pages.filter(page => !delegatesResigned.includes(page.regularPath.split("/")[2]))
-
 
       const additionalPages = pages.map((page) => {
         return {
@@ -69,7 +67,7 @@ module.exports = (options, context) => {
           content: page._strippedContent,
         };
       });
-      unikids.forEach((unikid) => {
+      delegatesRegister.forEach((unikid) => {
         if (!pages.find((page) => page.regularPath.includes(unikid))) {
           additionalPages.push({
             path: `/delegates/${unikid}/`,
@@ -88,7 +86,9 @@ module.exports = (options, context) => {
       const { siteConfig } = context;
       if (!siteConfig.head) siteConfig.head = [];
 
-      pages.forEach((page) => {
+      const pagesWithoutResignedDelegates = pages.filter(page => !delegatesResigned.includes(page.regularPath.split("/")[2]))
+
+      pagesWithoutResignedDelegates.forEach((page) => {
         const unikid = page.regularPath.split("/")[2];
         const unik = uniks.find((unik) => unik.id === unikid);
         const delegate = delegates.find(
