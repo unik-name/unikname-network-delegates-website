@@ -7,13 +7,13 @@ const truncate = (str, max, suffix) =>
   str.length < max
     ? str
     : `${str.substr(
-        0,
-        str.substr(0, max - suffix.length).lastIndexOf(" ")
-      )}${suffix}`;
+      0,
+      str.substr(0, max - suffix.length).lastIndexOf(" ")
+    )}${suffix}`;
 
 module.exports = (options, context) => {
   const pages = [];
-  let uniks = [];
+  let delegatesResigned = [];
   let delegates = [];
   const unikidsClaimed = [];
 
@@ -47,12 +47,19 @@ module.exports = (options, context) => {
       delegates = await axios
         .get("https://api.uns.network/api/v2/delegates")
         .then((res) => res.data.data);
-      const unikids = delegates
+      const delegatesRegister = delegates
         .filter((delegate) => !delegate.username.includes("genesis"))
+        .filter((delegate) => !delegate.isResigned)
         .map((delegate) => delegate.username);
       uniks = await axios
-        .post("https://api.uns.network/api/v2/uniks/search", { id: unikids })
+        .post("https://api.uns.network/api/v2/uniks/search", { id: delegatesRegister })
         .then((res) => res.data.data);
+
+      // store the resigned delegate pages to hide them
+      delegatesResigned = delegates
+        .filter((delegate) => !delegate.username.includes("genesis"))
+        .filter((delegate) => delegate.isResigned)
+        .map(delegate => delegate.username)
 
       const additionalPages = pages.map((page) => {
         return {
@@ -60,7 +67,7 @@ module.exports = (options, context) => {
           content: page._strippedContent,
         };
       });
-      unikids.forEach((unikid) => {
+      delegatesRegister.forEach((unikid) => {
         if (!pages.find((page) => page.regularPath.includes(unikid))) {
           additionalPages.push({
             path: `/delegates/${unikid}/`,
@@ -78,7 +85,10 @@ module.exports = (options, context) => {
     async ready() {
       const { siteConfig } = context;
       if (!siteConfig.head) siteConfig.head = [];
-      pages.forEach((page) => {
+
+      const pagesWithoutResignedDelegates = pages.filter(page => !delegatesResigned.includes(page.regularPath.split("/")[2]))
+
+      pagesWithoutResignedDelegates.forEach((page) => {
         const unikid = page.regularPath.split("/")[2];
         const unik = uniks.find((unik) => unik.id === unikid);
         const delegate = delegates.find(
@@ -144,10 +154,10 @@ module.exports = (options, context) => {
       );
       pagesWithoutFrontmatter.forEach(
         (page) =>
-          (page.frontmatter = {
-            unikid: page.regularPath.split("/")[2],
-            notCompleted: true,
-          })
+        (page.frontmatter = {
+          unikid: page.regularPath.split("/")[2],
+          notCompleted: true,
+        })
       );
       const delegatesPages = pages.filter(
         (page) => !page.regularPath.includes("embedded")
