@@ -31,6 +31,10 @@ Follow me on [twitter](https://twitter.com/muzaffer_taylan) for upcoming airdrop
 ## Contributions
 
 <!-- detail your contributions -->
+- **[October 17 / 2021 ]** Airdrop to 1000th member of Unikname.network Discord group
+  - [AirDrop-Discord-1000](https://twitter.com/muzaffer_taylan/status/1446446462766886918)
+- **[October 7 / 2021 ]** Airdrop to my 500th Voter
+  - [AirDrop-Voter-500](https://twitter.com/muzaffer_taylan/status/1446131093745242122)
 - **[September 27 / 2021 ]** Airdrop to my 300th Voter
   - [AirDrop-Voter-300](https://twitter.com/muzaffer_taylan/status/1441794073979928576)
 - **[September 23 / 2021 ]** Airdrop to 1000th member of Unikname.network Telegram group
